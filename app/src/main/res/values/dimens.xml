@@ -7,5 +7,7 @@
     <dimen name="screen_vertical_padding">20dp</dimen>
     <dimen name="large_text">19sp</dimen>
     <dimen name="normal_text">16dp</dimen>
+    <dimen name="map_footer_card_height">110dp</dimen>
+    <dimen name="button_height">44dp</dimen>
 
 </resources>

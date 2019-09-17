@@ -1,14 +1,21 @@
-package gr.efthymiou.petros.backbaseassignment.features.home;
+package gr.efthymiou.petros.backbaseassignment.features.bookmarks.home;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.List;
+
 import gr.efthymiou.petros.backbaseassignment.R;
 import gr.efthymiou.petros.backbaseassignment.base.BaseFragment;
+import gr.efthymiou.petros.backbaseassignment.base.MainActivity;
+import gr.efthymiou.petros.backbaseassignment.features.bookmarks.Bookmark;
 
 
 public class BookmarksFragment extends BaseFragment implements BookmarksView {
@@ -16,7 +23,8 @@ public class BookmarksFragment extends BaseFragment implements BookmarksView {
     private RecyclerView mBookmarksRv;
     private BookmarksPresenter presenter;
 
-    public BookmarksFragment() { }
+    public BookmarksFragment() {
+    }
 
 
     @Override
@@ -46,6 +54,11 @@ public class BookmarksFragment extends BaseFragment implements BookmarksView {
 
         mBookmarksRv.setAdapter(adapter);
 
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_main, menu);
     }
 
     @Override

@@ -1,4 +1,4 @@
-package gr.efthymiou.petros.backbaseassignment.features.home;
+package gr.efthymiou.petros.backbaseassignment.features.bookmarks;
 
 import android.content.Context;
 
@@ -43,6 +43,4 @@ public class BookmarksInteractorImpl implements BookmarksInteractor {
             listener.onFailure();
         }
     }
-
-
 }

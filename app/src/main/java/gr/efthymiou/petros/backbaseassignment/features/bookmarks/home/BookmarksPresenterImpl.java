@@ -1,10 +1,13 @@
-package gr.efthymiou.petros.backbaseassignment.features.home;
+package gr.efthymiou.petros.backbaseassignment.features.bookmarks.home;
 
 import android.content.Context;
 
 import java.util.List;
 
 import gr.efthymiou.petros.backbaseassignment.R;
+import gr.efthymiou.petros.backbaseassignment.features.bookmarks.Bookmark;
+import gr.efthymiou.petros.backbaseassignment.features.bookmarks.BookmarksInteractor;
+import gr.efthymiou.petros.backbaseassignment.features.bookmarks.BookmarksInteractorImpl;
 
 public class BookmarksPresenterImpl implements BookmarksPresenter, BookmarksInteractor.GetBookmarksFinishListener {
 

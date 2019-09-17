@@ -1,4 +1,4 @@
-package gr.efthymiou.petros.backbaseassignment.features.home;
+package gr.efthymiou.petros.backbaseassignment.features.bookmarks.home;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import gr.efthymiou.petros.backbaseassignment.R;
+import gr.efthymiou.petros.backbaseassignment.features.bookmarks.Bookmark;
 
 public class BookmarksRecyclerAdapter extends RecyclerView.Adapter<BookmarksRecyclerAdapter.ViewHolder> {
 

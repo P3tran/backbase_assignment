@@ -3,4 +3,18 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+
+    <color name="white">#ffffff</color>
+    <color name="white_30">#4cffffff</color>
+    <color name="white_90">#e6ffffff</color>
+    <color name="seafoam_blue">#77d7bf</color>
+    <color name="seaweed_green">#2f9b80</color>
+    <color name="black">#000000</color>
+    <color name="rouge">#a81132</color>
+    <color name="rouge_20">#CCa81132</color>
+    <color name="brownish_grey">#666666</color>
+    <color name="warm_grey">#999999</color>
+    <color name="lipstick">#d91b44</color>
+    <color name="black_20">#32000000</color>
+    <color name="background_gray">#d8d8d8</color>
 </resources>

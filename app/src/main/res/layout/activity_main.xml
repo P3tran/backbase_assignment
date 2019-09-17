@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".features.MainActivityImpl">
+    tools:context=".base.MainActivityImpl">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_height="wrap_content"
@@ -22,12 +22,16 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <fragment
+    <LinearLayout
+        android:id="@+id/fragment_container"
         android:layout_marginTop="?attr/actionBarSize"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="gr.efthymiou.petros.backbaseassignment.features.home.BookmarksFragment"
-        android:id="@+id/fragment" />
+        android:orientation="vertical">
+
+    </LinearLayout>
+
+
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"

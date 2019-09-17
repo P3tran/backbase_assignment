@@ -1,4 +1,4 @@
-package gr.efthymiou.petros.backbaseassignment.features.home;
+package gr.efthymiou.petros.backbaseassignment.features.bookmarks.home;
 
 import android.content.Context;
 

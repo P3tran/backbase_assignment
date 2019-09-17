@@ -1,4 +1,4 @@
-package gr.efthymiou.petros.backbaseassignment.features.home;
+package gr.efthymiou.petros.backbaseassignment.features.bookmarks;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -79,8 +79,8 @@ public class BookmarksDatasource {
                 cursor.getInt(0),
                 cursor.getString(1),
                 new Coord(
-                        cursor.getLong(2),
-                        cursor.getLong(3)
+                        cursor.getDouble(2),
+                        cursor.getDouble(3)
                 )
         );
         return bookmark;
