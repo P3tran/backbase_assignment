@@ -1,3 +1,11 @@
 <resources>
+
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="bookmark_height">80dp</dimen>
+    <dimen name="card_corner_radius">4dp</dimen>
+    <dimen name="card_elevation">4dp</dimen>
+    <dimen name="screen_vertical_padding">20dp</dimen>
+    <dimen name="large_text">19sp</dimen>
+    <dimen name="normal_text">16dp</dimen>
+
 </resources>
