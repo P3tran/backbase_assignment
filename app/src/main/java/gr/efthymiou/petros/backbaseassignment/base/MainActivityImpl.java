@@ -12,6 +12,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 
 import gr.efthymiou.petros.backbaseassignment.R;
 import gr.efthymiou.petros.backbaseassignment.features.bookmarks.home.BookmarksFragment;
@@ -20,6 +21,7 @@ import gr.efthymiou.petros.backbaseassignment.features.bookmarks.map.AddBookmark
 public class MainActivityImpl extends AppCompatActivity implements MainActivity {
 
     private FloatingActionButton mAddBookmarkFab;
+    private ViewGroup mRoot;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,14 +30,12 @@ public class MainActivityImpl extends AppCompatActivity implements MainActivity 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        mRoot = findViewById(R.id.activity_root);
         mAddBookmarkFab= findViewById(R.id.fab);
         mAddBookmarkFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 flipOpenFragment(new AddBookmarkMapFragment());
-
-/*                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();*/
             }
         });
 
@@ -72,11 +72,17 @@ public class MainActivityImpl extends AppCompatActivity implements MainActivity 
         if(fragmentName.equals(BookmarksFragment.class.getSimpleName())) {
             mAddBookmarkFab.show();
             getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-            setTitle(R.string.app_name);
+            setTitle(R.string.bookmarks_fragment_title);
         } else if(fragmentName.equals(AddBookmarkMapFragment.class.getSimpleName())) {
             mAddBookmarkFab.hide();
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             setTitle(R.string.add_bookmark_map_fragment_title);
         }
+    }
+
+    //TODO evaluate if needed
+    @Override
+    public void displayError(String error) {
+        Snackbar.make(mRoot, error, Snackbar.LENGTH_LONG).show();
     }
 }

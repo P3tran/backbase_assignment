@@ -4,7 +4,9 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -20,9 +22,11 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.material.snackbar.Snackbar;
 
 import gr.efthymiou.petros.backbaseassignment.R;
 import gr.efthymiou.petros.backbaseassignment.base.BaseFragment;
+import gr.efthymiou.petros.backbaseassignment.base.MainActivity;
 import gr.efthymiou.petros.backbaseassignment.features.bookmarks.Coord;
 import gr.efthymiou.petros.backbaseassignment.utils.Const;
 import gr.efthymiou.petros.backbaseassignment.utils.LocationHelper;
@@ -34,6 +38,7 @@ public class AddBookmarkMapFragment extends BaseFragment implements OnMapReadyCa
     private MapPresenter presenter;
     private ProgressBar progressBar;
     private Float mapZoom = 8F;
+    private ViewGroup mRoot;
 
     private GoogleMap.OnCameraIdleListener mCameraIdleListener = new GoogleMap.OnCameraIdleListener() {
         @Override
@@ -66,6 +71,7 @@ public class AddBookmarkMapFragment extends BaseFragment implements OnMapReadyCa
         presenter = new MapPresenterImpl(this);
         progressBar = view.findViewById(R.id.loader);
         mLocation = view.findViewById(R.id.location);
+        mRoot = view.findViewById(R.id.add_bookmark_root);
 
     }
 
@@ -74,7 +80,6 @@ public class AddBookmarkMapFragment extends BaseFragment implements OnMapReadyCa
         mMap = googleMap;
         mMap.setOnCameraIdleListener(mCameraIdleListener);
         mMap.setOnCameraMoveStartedListener(mCameraMoveStartedListener);
-        //mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.clean_map_style));
         checkLocationPermission();
     }
 
@@ -104,8 +109,16 @@ public class AddBookmarkMapFragment extends BaseFragment implements OnMapReadyCa
     }
 
     @Override
-    public void hideAddress() {
-        mLocation.setVisibility(View.INVISIBLE);
+    public void bookmarkAdded(String bookmarkName) {
+        if (getActivity() != null) {
+            getActivity().onBackPressed();
+            ((MainActivity) getActivity()).displayError(getString(R.string.bookmarked) + " " + bookmarkName);
+        }
+    }
+
+    @Override
+    public void emptyAddress() {
+        mLocation.setText("");
     }
 
     private void checkLocationPermission() {
@@ -150,11 +163,26 @@ public class AddBookmarkMapFragment extends BaseFragment implements OnMapReadyCa
 
     @Override
     public void displayError(int errorMessageId) {
-        //TODO
+        Snackbar.make(mRoot, getString(errorMessageId), Snackbar.LENGTH_LONG).show();
     }
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        inflater.inflate(R.menu.empty_menu, menu);
+        inflater.inflate(R.menu.menu_add_bookmark, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.action_add_bookmark) {
+            addBookmark();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void addBookmark() {
+        if (mLocation.getText().toString().isEmpty())
+            displayError(R.string.no_bookmark_name);
+        else
+            presenter.addBookmark(mMap.getCameraPosition().target, mLocation.getText().toString(), getContext());
     }
 }

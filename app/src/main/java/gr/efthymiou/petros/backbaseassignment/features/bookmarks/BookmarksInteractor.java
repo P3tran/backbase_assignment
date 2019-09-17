@@ -8,6 +8,8 @@ public interface BookmarksInteractor {
 
     void getBookmarks(GetBookmarksFinishListener listener, Context ctx);
 
+    void addBookmark(Bookmark bookmark, AddBookmarkFinishListener listener, Context ctx);
+
     void deleteBookmark(DeleteBookmarksFinishListener listener, int bookmarkId, Context ctx);
 
     void deleteAllBookmarks(DeleteBookmarksFinishListener listener, Context ctx);
@@ -20,10 +22,18 @@ public interface BookmarksInteractor {
 
     }
 
+    interface AddBookmarkFinishListener {
+
+        void onAddSuccess(String name);
+
+        void onAddFailure();
+
+    }
+
     interface DeleteBookmarksFinishListener {
 
-        void onSuccess();
+        void onDeleteSuccess();
 
-        void onFailure();
+        void onDeleteFailure();
     }
 }

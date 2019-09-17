@@ -1,8 +1,11 @@
 <resources>
     <string name="app_name">Smooth Weather</string>
+    <string name="bookmarks_fragment_title">My Locations</string>
     <string name="action_settings">Settings</string>
+    <string name="action_add_bookmark">Add location</string>
     <string name="general_error">Something went wrong, please try again</string>
-    <string name="map_button_text">Add Bookmark</string>
     <string name="location_permission_denied">Location permission is not granted</string>
-    <string name="add_bookmark_map_fragment_title">New Bookmark</string>
+    <string name="add_bookmark_map_fragment_title">Add Location</string>
+    <string name="no_bookmark_name">Please type the location name here</string>
+    <string name="bookmarked">Bookmarked</string>
 </resources>

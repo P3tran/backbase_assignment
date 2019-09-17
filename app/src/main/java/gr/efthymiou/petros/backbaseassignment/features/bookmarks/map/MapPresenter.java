@@ -11,4 +11,6 @@ public interface MapPresenter {
     void getTargetLocation(LatLng latLng, Context context);
 
     void getCurrentUserLocation(Context context);
+
+    void addBookmark(LatLng latLng, String name, Context ctx);
 }

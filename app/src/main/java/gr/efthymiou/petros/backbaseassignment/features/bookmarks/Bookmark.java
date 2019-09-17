@@ -6,6 +6,11 @@ public class Bookmark {
     private String name;
     private Coord coord;
 
+    public Bookmark(String name, Coord coord) {
+        this.name = name;
+        this.coord = coord;
+    }
+
     public Bookmark(int id, String name, Coord coord) {
         this.id = id;
         this.name = name;

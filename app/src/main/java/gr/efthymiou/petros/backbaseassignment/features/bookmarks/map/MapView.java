@@ -7,11 +7,14 @@ public interface MapView extends GenericView {
 
     void updateLocation(String location);
 
-    void hideAddress();
+    void emptyAddress();
 
     void moveMapToCurrentUserLocation(Coord coord);
 
     void showLoader();
 
     void hideLoader();
+
+    void bookmarkAdded(String bookmarkName);
+
 }

@@ -21,6 +21,22 @@ public class BookmarksInteractorImpl implements BookmarksInteractor {
     }
 
     @Override
+    public void addBookmark(Bookmark bookmark, AddBookmarkFinishListener listener, Context ctx) {
+        try {
+            BookmarksDatasource dataSource = new BookmarksDatasource(ctx);
+            dataSource.open();
+            Bookmark savedBookmark = dataSource.createBookmark(bookmark);
+            if (savedBookmark != null)
+                listener.onAddSuccess(savedBookmark.getName());
+            else
+                listener.onAddFailure();
+            dataSource.close();
+        } catch (Exception e) {
+            listener.onAddFailure();
+        }
+    }
+
+    @Override
     public void deleteBookmark(DeleteBookmarksFinishListener listener, int bookmarkId, Context ctx) {
         try {
             BookmarksDatasource dataSource = new BookmarksDatasource(ctx);
@@ -28,7 +44,7 @@ public class BookmarksInteractorImpl implements BookmarksInteractor {
             dataSource.deleteBookmark(bookmarkId);
             dataSource.close();
         } catch (Exception e) {
-            listener.onFailure();
+            listener.onDeleteFailure();
         }
     }
 
@@ -40,7 +56,7 @@ public class BookmarksInteractorImpl implements BookmarksInteractor {
             dataSource.deleteAllBookmarks();
             dataSource.close();
         } catch (Exception e) {
-            listener.onFailure();
+            listener.onDeleteSuccess();
         }
     }
 }
