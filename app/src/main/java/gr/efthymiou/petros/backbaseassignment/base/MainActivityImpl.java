@@ -15,12 +15,12 @@ import android.view.MenuItem;
 import android.view.ViewGroup;
 
 import gr.efthymiou.petros.backbaseassignment.R;
+import gr.efthymiou.petros.backbaseassignment.features.bookmarks.Bookmark;
 import gr.efthymiou.petros.backbaseassignment.features.bookmarks.home.BookmarksFragment;
 import gr.efthymiou.petros.backbaseassignment.features.bookmarks.map.AddBookmarkMapFragment;
 
 public class MainActivityImpl extends AppCompatActivity implements MainActivity {
 
-    private FloatingActionButton mAddBookmarkFab;
     private ViewGroup mRoot;
 
     @Override
@@ -29,15 +29,7 @@ public class MainActivityImpl extends AppCompatActivity implements MainActivity 
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         mRoot = findViewById(R.id.activity_root);
-        mAddBookmarkFab= findViewById(R.id.fab);
-        mAddBookmarkFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                flipOpenFragment(new AddBookmarkMapFragment());
-            }
-        });
 
         getSupportFragmentManager()
                 .beginTransaction()
@@ -48,8 +40,12 @@ public class MainActivityImpl extends AppCompatActivity implements MainActivity 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
+        switch (id) {
+            case android.R.id.home :
+                onBackPressed();
+                return true;
+            case R.id.action_settings :
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -70,11 +66,9 @@ public class MainActivityImpl extends AppCompatActivity implements MainActivity 
     @Override
     public void updateNavigation(String fragmentName) {
         if(fragmentName.equals(BookmarksFragment.class.getSimpleName())) {
-            mAddBookmarkFab.show();
             getSupportActionBar().setDisplayHomeAsUpEnabled(false);
             setTitle(R.string.bookmarks_fragment_title);
         } else if(fragmentName.equals(AddBookmarkMapFragment.class.getSimpleName())) {
-            mAddBookmarkFab.hide();
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             setTitle(R.string.add_bookmark_map_fragment_title);
         }
@@ -82,7 +76,8 @@ public class MainActivityImpl extends AppCompatActivity implements MainActivity 
 
     //TODO evaluate if needed
     @Override
-    public void displayError(String error) {
-        Snackbar.make(mRoot, error, Snackbar.LENGTH_LONG).show();
+    public void displaySnackbar(String message) {
+        Snackbar.make(mRoot, message, Snackbar.LENGTH_LONG).show();
     }
+
 }

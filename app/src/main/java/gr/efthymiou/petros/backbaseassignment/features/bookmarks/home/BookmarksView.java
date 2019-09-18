@@ -11,4 +11,8 @@ public interface BookmarksView extends GenericView {
 
     void displayEmptyState();
 
+    void bookmarkDeletedSuccess(Bookmark bookmark);
+
+    void bookmarkDeletedFailure();
+
 }

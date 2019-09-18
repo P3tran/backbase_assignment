@@ -6,5 +6,6 @@ public interface MainActivity {
 
     void updateNavigation(String fragmentName);
 
-    void displayError(String error);
+    void displaySnackbar(String message);
+
 }

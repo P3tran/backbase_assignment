@@ -4,28 +4,34 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import java.util.List;
-
 import gr.efthymiou.petros.backbaseassignment.R;
 import gr.efthymiou.petros.backbaseassignment.base.BaseFragment;
 import gr.efthymiou.petros.backbaseassignment.base.MainActivity;
 import gr.efthymiou.petros.backbaseassignment.features.bookmarks.Bookmark;
+import gr.efthymiou.petros.backbaseassignment.features.bookmarks.map.AddBookmarkMapFragment;
 
 
 public class BookmarksFragment extends BaseFragment implements BookmarksView {
 
     private RecyclerView mBookmarksRv;
     private BookmarksPresenter presenter;
+    private FloatingActionButton mAddBookmarkFab;
+    private ViewGroup mRoot;
+    private BookmarksRecyclerAdapter rvAdapter;
 
     public BookmarksFragment() {
     }
-
 
     @Override
     protected int getLayoutId() {
@@ -38,22 +44,54 @@ public class BookmarksFragment extends BaseFragment implements BookmarksView {
         mBookmarksRv = view.findViewById(R.id.bookmarks_rv);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         mBookmarksRv.setLayoutManager(layoutManager);
+
         presenter = new BookmarksPresenterImpl(this);
         presenter.getBookmarks(getContext());
+        mRoot = view.findViewById(R.id.bookmarks_root);
+        mAddBookmarkFab = view.findViewById(R.id.fab);
+        //setupRecyclerView();
+        setupFab();
     }
 
-    @Override
-    public void displayBookmarks(List<Bookmark> bookmarks) {
+    private void setupFab() {
+        mAddBookmarkFab.setOnClickListener(view1 -> {
+            if (getActivity() != null)
+                ((MainActivity) getActivity()).flipOpenFragment(new AddBookmarkMapFragment());
+        });
+    }
 
-        BookmarksRecyclerAdapter adapter = new BookmarksRecyclerAdapter(bookmarks, new BookmarkClickListener() {
+    //TODO Refactor
+    void setupRecyclerView(List<Bookmark> bookmarks) {
+        rvAdapter = new BookmarksRecyclerAdapter(bookmarks, new BookmarkClickListener() {
             @Override
             public void onBookmarkClicked(Bookmark bookmark) {
                 //TODO
             }
+
+            @Override
+            public void onBookmarkDeleted(Bookmark bookmark) {
+                presenter.deleteBookmark(bookmark, getContext());
+            }
         });
+        mBookmarksRv.setAdapter(rvAdapter);
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new SwipeToDeleteCallback(rvAdapter, getContext()));
+        itemTouchHelper.attachToRecyclerView(mBookmarksRv);
+    }
 
-        mBookmarksRv.setAdapter(adapter);
+    @Override
+    public void displayBookmarks(List<Bookmark> bookmarks) {
+        setupRecyclerView(bookmarks);
+    }
 
+    private void showUndoSnackbar(final Bookmark bookmark) {
+        Snackbar snackbar = Snackbar.make(mRoot, getString(R.string.removed) + " " + bookmark.getName(), Snackbar.LENGTH_LONG);
+        snackbar.setAction(R.string.snack_bar_undo, v -> undoDelete(bookmark));
+        snackbar.show();
+    }
+
+    private void undoDelete(Bookmark bookmark) {
+        presenter.restoreBookmark(bookmark, getContext());
+        rvAdapter.undoDelete(bookmark);
     }
 
     @Override
@@ -61,9 +99,20 @@ public class BookmarksFragment extends BaseFragment implements BookmarksView {
         inflater.inflate(R.menu.menu_main, menu);
     }
 
+
     @Override
     public void displayEmptyState() {
+        //TODO
+    }
 
+    @Override
+    public void bookmarkDeletedSuccess(Bookmark bookmark) {
+        showUndoSnackbar(bookmark);
+    }
+
+    @Override
+    public void bookmarkDeletedFailure() {
+        displayError(R.string.general_error);
     }
 
     @Override

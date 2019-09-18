@@ -6,4 +6,6 @@ public interface BookmarkClickListener {
 
     void onBookmarkClicked(Bookmark bookmark);
 
+    void onBookmarkDeleted(Bookmark bookmark);
+
 }

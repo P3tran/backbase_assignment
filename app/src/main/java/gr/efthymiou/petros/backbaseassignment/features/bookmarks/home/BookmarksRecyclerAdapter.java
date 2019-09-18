@@ -4,7 +4,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import gr.efthymiou.petros.backbaseassignment.R;
@@ -14,22 +17,16 @@ public class BookmarksRecyclerAdapter extends RecyclerView.Adapter<BookmarksRecy
 
     private List<Bookmark> bookmarks;
     private BookmarkClickListener listener;
+    private int latestDeletedPosition;
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
-
-        ViewGroup background;
-        TextView name;
-
-        public ViewHolder(View view) {
-            super(view);
-            name = view.findViewById(R.id.bookmark_name);
-            background = view.findViewById(R.id.bookmark_item_background);
-        }
+    public BookmarksRecyclerAdapter(List<Bookmark> bookmarks, BookmarkClickListener listener) {
+        this.bookmarks = bookmarks;
+        this.listener = listener;
     }
 
     @Override
     public BookmarksRecyclerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
-                                                              int viewType) {
+                                                                  int viewType) {
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.bookmark_item, parent, false);
         return new ViewHolder(v);
@@ -46,9 +43,16 @@ public class BookmarksRecyclerAdapter extends RecyclerView.Adapter<BookmarksRecy
         });
     }
 
-    public BookmarksRecyclerAdapter(List<Bookmark> bookmarks, BookmarkClickListener listener) {
-        this.bookmarks = bookmarks;
-        this.listener = listener;
+    public void deleteItem(int position) {
+        listener.onBookmarkDeleted(bookmarks.get(position));
+        latestDeletedPosition = position;
+        bookmarks.remove(position);
+        notifyItemRemoved(position);
+    }
+
+    void undoDelete(Bookmark bookmark) {
+        bookmarks.add(latestDeletedPosition, bookmark);
+        notifyItemInserted(latestDeletedPosition);
     }
 
     @Override
@@ -62,5 +66,17 @@ public class BookmarksRecyclerAdapter extends RecyclerView.Adapter<BookmarksRecy
 
     public void setBookmarks(List<Bookmark> bookmarks) {
         this.bookmarks = bookmarks;
+    }
+
+    static class ViewHolder extends RecyclerView.ViewHolder {
+
+        ViewGroup background;
+        TextView name;
+
+        public ViewHolder(View view) {
+            super(view);
+            name = view.findViewById(R.id.bookmark_name);
+            background = view.findViewById(R.id.bookmark_item_background);
+        }
     }
 }

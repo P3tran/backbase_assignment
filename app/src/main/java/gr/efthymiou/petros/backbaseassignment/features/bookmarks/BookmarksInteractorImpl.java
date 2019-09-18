@@ -1,10 +1,13 @@
 package gr.efthymiou.petros.backbaseassignment.features.bookmarks;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.util.List;
 
 public class BookmarksInteractorImpl implements BookmarksInteractor {
+
+    private static final String TAG = BookmarksInteractorImpl.class.getName();
 
     @Override
     public void getBookmarks(GetBookmarksFinishListener listener, Context ctx) {
@@ -17,6 +20,7 @@ public class BookmarksInteractorImpl implements BookmarksInteractor {
             dataSource.close();
         } catch (Exception e) {
             listener.onFailure();
+            Log.e(TAG, "Failed to retrieve all bookmarks");
         }
     }
 
@@ -33,23 +37,38 @@ public class BookmarksInteractorImpl implements BookmarksInteractor {
             dataSource.close();
         } catch (Exception e) {
             listener.onAddFailure();
+            Log.e(TAG, "Failed to add bookmark" + bookmark.toString());
         }
     }
 
     @Override
-    public void deleteBookmark(DeleteBookmarksFinishListener listener, int bookmarkId, Context ctx) {
+    public void restoreBookmark(Bookmark bookmark, Context ctx) {
         try {
             BookmarksDatasource dataSource = new BookmarksDatasource(ctx);
             dataSource.open();
-            dataSource.deleteBookmark(bookmarkId);
+            dataSource.createBookmark(bookmark);
             dataSource.close();
         } catch (Exception e) {
-            listener.onDeleteFailure();
+            Log.e(TAG, "Failed to restore bookmark" + bookmark.toString());
         }
     }
 
     @Override
-    public void deleteAllBookmarks(DeleteBookmarksFinishListener listener, Context ctx) {
+    public void deleteBookmark(DeleteBookmarkFinishListener listener, Bookmark bookmark, Context ctx) {
+        try {
+            BookmarksDatasource dataSource = new BookmarksDatasource(ctx);
+            dataSource.open();
+            dataSource.deleteBookmark(bookmark.getId());
+            listener.onDeleteSuccess(bookmark);
+            dataSource.close();
+        } catch (Exception e) {
+            listener.onDeleteFailure();
+            Log.e(TAG, "Failed to delete bookmark" + bookmark.toString());
+        }
+    }
+
+    @Override
+    public void deleteAllBookmarks(DeleteAllBookmarksFinishListener listener, Context ctx) {
         try {
             BookmarksDatasource dataSource = new BookmarksDatasource(ctx);
             dataSource.open();
@@ -57,6 +76,7 @@ public class BookmarksInteractorImpl implements BookmarksInteractor {
             dataSource.close();
         } catch (Exception e) {
             listener.onDeleteSuccess();
+            Log.e(TAG, "Failed to delete all bookmarks");
         }
     }
 }

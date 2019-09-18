@@ -112,7 +112,7 @@ public class AddBookmarkMapFragment extends BaseFragment implements OnMapReadyCa
     public void bookmarkAdded(String bookmarkName) {
         if (getActivity() != null) {
             getActivity().onBackPressed();
-            ((MainActivity) getActivity()).displayError(getString(R.string.bookmarked) + " " + bookmarkName);
+            ((MainActivity) getActivity()).displaySnackbar(getString(R.string.bookmarked) + " " + bookmarkName);
         }
     }
 

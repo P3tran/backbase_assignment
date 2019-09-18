@@ -9,7 +9,9 @@ import gr.efthymiou.petros.backbaseassignment.features.bookmarks.Bookmark;
 import gr.efthymiou.petros.backbaseassignment.features.bookmarks.BookmarksInteractor;
 import gr.efthymiou.petros.backbaseassignment.features.bookmarks.BookmarksInteractorImpl;
 
-public class BookmarksPresenterImpl implements BookmarksPresenter, BookmarksInteractor.GetBookmarksFinishListener {
+public class BookmarksPresenterImpl implements BookmarksPresenter,
+        BookmarksInteractor.GetBookmarksFinishListener,
+        BookmarksInteractor.DeleteBookmarkFinishListener {
 
     private BookmarksView view;
     private BookmarksInteractor interactor;
@@ -25,13 +27,37 @@ public class BookmarksPresenterImpl implements BookmarksPresenter, BookmarksInte
     }
 
     @Override
+    public void deleteBookmark(Bookmark bookmark, Context ctx) {
+        interactor.deleteBookmark(this, bookmark, ctx);
+    }
+
+    @Override
+    public void restoreBookmark(Bookmark bookmark, Context ctx) {
+        interactor.restoreBookmark(bookmark,  ctx);
+    }
+
+    @Override
     public void onSuccess(List<Bookmark> bookmarks) {
         view.displayBookmarks(bookmarks);
     }
 
     @Override
     public void onFailure() {
-        view.displayError(R.string.general_error);
-        view.displayEmptyState();
+        if (view != null) {
+            view.displayError(R.string.general_error);
+            view.displayEmptyState();
+        }
+    }
+
+    @Override
+    public void onDeleteSuccess(Bookmark bookmark) {
+        if (view != null)
+            view.bookmarkDeletedSuccess(bookmark);
+    }
+
+    @Override
+    public void onDeleteFailure() {
+        if (view != null)
+            view.bookmarkDeletedFailure();
     }
 }

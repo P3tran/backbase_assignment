@@ -10,9 +10,11 @@ public interface BookmarksInteractor {
 
     void addBookmark(Bookmark bookmark, AddBookmarkFinishListener listener, Context ctx);
 
-    void deleteBookmark(DeleteBookmarksFinishListener listener, int bookmarkId, Context ctx);
+    void restoreBookmark(Bookmark bookmark, Context ctx);
 
-    void deleteAllBookmarks(DeleteBookmarksFinishListener listener, Context ctx);
+    void deleteBookmark(DeleteBookmarkFinishListener listener, Bookmark bookmark, Context ctx);
+
+    void deleteAllBookmarks(DeleteAllBookmarksFinishListener listener, Context ctx);
 
     interface GetBookmarksFinishListener {
 
@@ -30,7 +32,14 @@ public interface BookmarksInteractor {
 
     }
 
-    interface DeleteBookmarksFinishListener {
+    interface DeleteBookmarkFinishListener {
+
+        void onDeleteSuccess(Bookmark bookmark);
+
+        void onDeleteFailure();
+    }
+
+    interface DeleteAllBookmarksFinishListener {
 
         void onDeleteSuccess();
 
