@@ -1,6 +1,9 @@
 package gr.efthymiou.petros.backbaseassignment.features.bookmarks;
 
-public class Bookmark {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Bookmark implements Parcelable {
 
     private int id;
     private String name;
@@ -59,4 +62,35 @@ public class Bookmark {
                 ", coord=" + coord +
                 '}';
     }
+
+    protected Bookmark(Parcel in) {
+        id = in.readInt();
+        name = in.readString();
+        coord = (Coord) in.readValue(Coord.class.getClassLoader());
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(name);
+        dest.writeValue(coord);
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<Bookmark> CREATOR = new Parcelable.Creator<Bookmark>() {
+        @Override
+        public Bookmark createFromParcel(Parcel in) {
+            return new Bookmark(in);
+        }
+
+        @Override
+        public Bookmark[] newArray(int size) {
+            return new Bookmark[size];
+        }
+    };
 }

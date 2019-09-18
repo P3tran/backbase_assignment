@@ -14,12 +14,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+
 import java.util.List;
+
 import gr.efthymiou.petros.backbaseassignment.R;
 import gr.efthymiou.petros.backbaseassignment.base.BaseFragment;
 import gr.efthymiou.petros.backbaseassignment.base.MainActivity;
 import gr.efthymiou.petros.backbaseassignment.features.bookmarks.Bookmark;
 import gr.efthymiou.petros.backbaseassignment.features.bookmarks.map.AddBookmarkMapFragment;
+import gr.efthymiou.petros.backbaseassignment.features.weather.WeatherForecastFragment;
 
 
 public class BookmarksFragment extends BaseFragment implements BookmarksView {
@@ -63,9 +66,11 @@ public class BookmarksFragment extends BaseFragment implements BookmarksView {
     //TODO Refactor
     void setupRecyclerView(List<Bookmark> bookmarks) {
         rvAdapter = new BookmarksRecyclerAdapter(bookmarks, new BookmarkClickListener() {
+
             @Override
             public void onBookmarkClicked(Bookmark bookmark) {
-                //TODO
+                if (getActivity() != null)
+                    ((MainActivity) getActivity()).flipOpenFragment(WeatherForecastFragment.newInstance(bookmark));
             }
 
             @Override

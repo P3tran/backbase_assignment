@@ -1,8 +1,13 @@
 package gr.efthymiou.petros.backbaseassignment.features.bookmarks;
 
-public class Coord {
-   private double lat;
-   private double lon;
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
+public class Coord implements Parcelable {
+    private double lat;
+    private double lon;
 
     public Coord(double lat, double lon) {
         this.lat = lat;
@@ -34,6 +39,7 @@ public class Coord {
                 Double.compare(coord.getLon(), getLon()) == 0;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "Coord{" +
@@ -41,4 +47,33 @@ public class Coord {
                 ", lon=" + lon +
                 '}';
     }
+
+    protected Coord(Parcel in) {
+        lat = in.readDouble();
+        lon = in.readDouble();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeDouble(lat);
+        dest.writeDouble(lon);
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<Coord> CREATOR = new Parcelable.Creator<Coord>() {
+        @Override
+        public Coord createFromParcel(Parcel in) {
+            return new Coord(in);
+        }
+
+        @Override
+        public Coord[] newArray(int size) {
+            return new Coord[size];
+        }
+    };
 }
