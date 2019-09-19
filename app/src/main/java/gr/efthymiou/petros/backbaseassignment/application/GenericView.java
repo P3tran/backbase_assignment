@@ -1,4 +1,4 @@
-package gr.efthymiou.petros.backbaseassignment.base;
+package gr.efthymiou.petros.backbaseassignment.application;
 
 public interface GenericView {
 

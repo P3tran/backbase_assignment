@@ -1,4 +1,4 @@
-package gr.efthymiou.petros.backbaseassignment.base.mockobjects;
+package gr.efthymiou.petros.backbaseassignment.application.mockobjects;
 
 import gr.efthymiou.petros.backbaseassignment.features.weather.ForecastRawValidator;
 import gr.efthymiou.petros.backbaseassignment.features.weather.models.network.ForecastRaw;

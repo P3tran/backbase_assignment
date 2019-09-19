@@ -1,4 +1,4 @@
-package gr.efthymiou.petros.backbaseassignment.base;
+package gr.efthymiou.petros.backbaseassignment.application;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -13,6 +13,7 @@ import gr.efthymiou.petros.backbaseassignment.R;
 import gr.efthymiou.petros.backbaseassignment.features.bookmarks.home.BookmarksFragment;
 import gr.efthymiou.petros.backbaseassignment.features.bookmarks.map.AddBookmarkMapFragment;
 import gr.efthymiou.petros.backbaseassignment.features.help.HelpFragment;
+import gr.efthymiou.petros.backbaseassignment.features.settings.SettingsFragment;
 import gr.efthymiou.petros.backbaseassignment.features.weather.WeatherForecastFragment;
 
 public class MainActivityImpl extends AppCompatActivity implements MainActivity {
@@ -41,9 +42,11 @@ public class MainActivityImpl extends AppCompatActivity implements MainActivity 
                 onBackPressed();
                 return true;
             case R.id.action_settings:
+                flipOpenFragment(SettingsFragment.newInstance());
                 return true;
             case R.id.action_help:
                 flipOpenFragment(HelpFragment.newInstance());
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -75,7 +78,9 @@ public class MainActivityImpl extends AppCompatActivity implements MainActivity 
         } else if (fragmentName.equals(HelpFragment.class.getSimpleName())) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             setTitle(R.string.help_fragment_title);
+        } else if (fragmentName.equals(SettingsFragment.class.getSimpleName())) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            setTitle(R.string.settings_fragment_title);
         }
     }
 

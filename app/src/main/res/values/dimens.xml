@@ -11,5 +11,6 @@
     <dimen name="map_footer_card_height">60dp</dimen>
     <dimen name="button_height">44dp</dimen>
     <dimen name="forecast_item_height">50dp</dimen>
+    <dimen name="settings_item_height">60dp</dimen>
 
 </resources>

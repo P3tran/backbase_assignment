@@ -18,8 +18,8 @@ import com.google.android.material.snackbar.Snackbar;
 import java.util.List;
 
 import gr.efthymiou.petros.backbaseassignment.R;
-import gr.efthymiou.petros.backbaseassignment.base.BaseFragment;
-import gr.efthymiou.petros.backbaseassignment.base.MainActivity;
+import gr.efthymiou.petros.backbaseassignment.application.BaseFragment;
+import gr.efthymiou.petros.backbaseassignment.application.MainActivity;
 import gr.efthymiou.petros.backbaseassignment.features.bookmarks.Bookmark;
 import gr.efthymiou.petros.backbaseassignment.features.bookmarks.map.AddBookmarkMapFragment;
 import gr.efthymiou.petros.backbaseassignment.features.weather.WeatherForecastFragment;
@@ -58,8 +58,7 @@ public class BookmarksFragment extends BaseFragment implements BookmarksView {
 
     private void setupFab() {
         mAddBookmarkFab.setOnClickListener(view1 -> {
-            if (getActivity() != null)
-                ((MainActivity) getActivity()).flipOpenFragment(new AddBookmarkMapFragment());
+            flipOpenFragment(new AddBookmarkMapFragment());
         });
     }
 
@@ -69,8 +68,7 @@ public class BookmarksFragment extends BaseFragment implements BookmarksView {
 
             @Override
             public void onBookmarkClicked(Bookmark bookmark) {
-                if (getActivity() != null)
-                    ((MainActivity) getActivity()).flipOpenFragment(WeatherForecastFragment.newInstance(bookmark));
+                flipOpenFragment(WeatherForecastFragment.newInstance(bookmark));
             }
 
             @Override

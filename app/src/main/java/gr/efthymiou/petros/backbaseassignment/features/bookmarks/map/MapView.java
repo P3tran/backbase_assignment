@@ -1,6 +1,6 @@
 package gr.efthymiou.petros.backbaseassignment.features.bookmarks.map;
 
-import gr.efthymiou.petros.backbaseassignment.base.GenericView;
+import gr.efthymiou.petros.backbaseassignment.application.GenericView;
 import gr.efthymiou.petros.backbaseassignment.features.bookmarks.Coord;
 
 public interface MapView extends GenericView {

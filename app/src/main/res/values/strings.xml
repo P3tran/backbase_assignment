@@ -9,6 +9,7 @@
     <string name="add_bookmark_map_fragment_title">Add Location</string>
     <string name="weather_forecast_fragment_title">Weather Forecast</string>
     <string name="help_fragment_title">Help</string>
+    <string name="settings_fragment_title">Settings</string>
     <string name="no_bookmark_name">Please type the location name here</string>
     <string name="bookmarked">Bookmarked</string>
     <string name="removed">Removed</string>
@@ -17,6 +18,11 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="settings_delete_bookmarks">Delete all Bookmarks</string>
+    <string name="all_bookmarks_deleted">You have deleted all your bookmarks</string>
+    <string name="delete">DELETE</string>
+    <string name="no">NO</string>
+    <string name="settings_delete_bookmarks_dialog_message">Are you sure you want to delete all your bookmarks?</string>
 
 
 </resources>

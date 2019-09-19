@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import gr.efthymiou.petros.backbaseassignment.R;
-import gr.efthymiou.petros.backbaseassignment.base.BaseFragment;
+import gr.efthymiou.petros.backbaseassignment.application.BaseFragment;
 
 
 public class HelpFragment extends BaseFragment {

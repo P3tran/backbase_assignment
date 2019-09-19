@@ -5,8 +5,8 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import gr.efthymiou.petros.backbaseassignment.base.mockobjects.MockForecasts;
-import gr.efthymiou.petros.backbaseassignment.base.mockobjects.MockForecastsRawValidator;
+import gr.efthymiou.petros.backbaseassignment.application.mockobjects.MockForecasts;
+import gr.efthymiou.petros.backbaseassignment.application.mockobjects.MockForecastsRawValidator;
 import gr.efthymiou.petros.backbaseassignment.features.weather.ForecastMapperDomain;
 import gr.efthymiou.petros.backbaseassignment.features.weather.models.ForecastDomain;
 

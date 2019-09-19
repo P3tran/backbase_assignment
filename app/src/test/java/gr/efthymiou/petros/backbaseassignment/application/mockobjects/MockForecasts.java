@@ -1,4 +1,4 @@
-package gr.efthymiou.petros.backbaseassignment.base.mockobjects;
+package gr.efthymiou.petros.backbaseassignment.application.mockobjects;
 
 import java.util.ArrayList;
 import java.util.List;

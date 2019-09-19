@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import gr.efthymiou.petros.backbaseassignment.R;
-import gr.efthymiou.petros.backbaseassignment.base.BaseFragment;
+import gr.efthymiou.petros.backbaseassignment.application.BaseFragment;
 import gr.efthymiou.petros.backbaseassignment.features.weather.models.DayForecast;
 
 public class DayForecastFragment extends BaseFragment {

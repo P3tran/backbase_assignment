@@ -25,8 +25,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.snackbar.Snackbar;
 
 import gr.efthymiou.petros.backbaseassignment.R;
-import gr.efthymiou.petros.backbaseassignment.base.BaseFragment;
-import gr.efthymiou.petros.backbaseassignment.base.MainActivity;
+import gr.efthymiou.petros.backbaseassignment.application.BaseFragment;
+import gr.efthymiou.petros.backbaseassignment.application.MainActivity;
 import gr.efthymiou.petros.backbaseassignment.features.bookmarks.Coord;
 import gr.efthymiou.petros.backbaseassignment.utils.Const;
 import gr.efthymiou.petros.backbaseassignment.utils.LocationHelper;
@@ -112,7 +112,7 @@ public class AddBookmarkMapFragment extends BaseFragment implements OnMapReadyCa
     public void bookmarkAdded(String bookmarkName) {
         if (getActivity() != null) {
             getActivity().onBackPressed();
-            ((MainActivity) getActivity()).displaySnackbar(getString(R.string.bookmarked) + " " + bookmarkName);
+            displaySnackbar(getString(R.string.bookmarked) + " " + bookmarkName);
         }
     }
 

@@ -2,7 +2,7 @@ package gr.efthymiou.petros.backbaseassignment.features.bookmarks.home;
 
 import java.util.List;
 
-import gr.efthymiou.petros.backbaseassignment.base.GenericView;
+import gr.efthymiou.petros.backbaseassignment.application.GenericView;
 import gr.efthymiou.petros.backbaseassignment.features.bookmarks.Bookmark;
 
 public interface BookmarksView extends GenericView {

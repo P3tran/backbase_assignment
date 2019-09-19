@@ -18,7 +18,7 @@
             android:value="AIzaSyBMH2sNYAQTZvUpe52fFPCMbJXbxFLmiBI" />
 
         <activity
-            android:name=".base.MainActivityImpl"
+            android:name=".application.MainActivityImpl"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize">

@@ -10,7 +10,7 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
-import gr.efthymiou.petros.backbaseassignment.base.DatabaseHelper;
+import gr.efthymiou.petros.backbaseassignment.application.DatabaseHelper;
 import gr.efthymiou.petros.backbaseassignment.utils.LogUtils;
 
 public class BookmarksDatasource {

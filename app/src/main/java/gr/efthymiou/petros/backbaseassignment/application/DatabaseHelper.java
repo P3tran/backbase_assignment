@@ -1,4 +1,4 @@
-package gr.efthymiou.petros.backbaseassignment.base;
+package gr.efthymiou.petros.backbaseassignment.application;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

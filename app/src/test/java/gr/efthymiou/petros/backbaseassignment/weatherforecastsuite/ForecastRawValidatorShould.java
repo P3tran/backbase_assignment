@@ -2,7 +2,7 @@ package gr.efthymiou.petros.backbaseassignment.weatherforecastsuite;
 
 import org.junit.Test;
 
-import gr.efthymiou.petros.backbaseassignment.base.mockobjects.MockForecasts;
+import gr.efthymiou.petros.backbaseassignment.application.mockobjects.MockForecasts;
 import gr.efthymiou.petros.backbaseassignment.features.weather.ForecastRawValidator;
 
 import static org.junit.Assert.assertFalse;

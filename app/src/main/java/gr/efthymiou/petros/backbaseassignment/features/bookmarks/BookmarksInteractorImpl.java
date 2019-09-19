@@ -72,6 +72,7 @@ public class BookmarksInteractorImpl implements BookmarksInteractor {
             BookmarksDatasource dataSource = new BookmarksDatasource(ctx);
             dataSource.open();
             dataSource.deleteAllBookmarks();
+            listener.onDeleteSuccess();
             dataSource.close();
         } catch (Exception e) {
             listener.onDeleteSuccess();

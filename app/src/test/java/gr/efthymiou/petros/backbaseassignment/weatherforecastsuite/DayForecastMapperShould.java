@@ -7,7 +7,7 @@ import gr.efthymiou.petros.backbaseassignment.features.weather.DayForecastMapper
 import gr.efthymiou.petros.backbaseassignment.features.weather.models.DayForecast;
 import gr.efthymiou.petros.backbaseassignment.features.weather.models.Forecast;
 
-import static gr.efthymiou.petros.backbaseassignment.base.mockobjects.MockForecasts.*;
+import static gr.efthymiou.petros.backbaseassignment.application.mockobjects.MockForecasts.*;
 import static org.junit.Assert.assertEquals;
 
 public class DayForecastMapperShould {
