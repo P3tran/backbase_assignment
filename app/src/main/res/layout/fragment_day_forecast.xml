@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,7 +9,7 @@
     tools:context=".features.weather.day.DayForecastFragment">
 
     <TextView
-        android:id="@+id/time"
+        android:id="@+id/date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -36,133 +35,9 @@
 
     </LinearLayout>
 
-    <androidx.cardview.widget.CardView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/forecasts_rv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:elevation="@dimen/card_elevation"
-        app:cardCornerRadius="@dimen/card_corner_radius"
-        app:cardUseCompatPadding="true">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="6dp">
-
-            <TextView
-                android:id="@+id/time"
-                style="@style/header_text">
-
-            </TextView>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:id="@+id/icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <LinearLayout
-                    android:id="@+id/title_ll"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="6dp"
-                    android:layout_marginLeft="6dp"
-                    android:layout_marginEnd="40dp"
-                    android:layout_marginRight="40dp"
-                    android:layout_toEndOf="@id/icon"
-                    android:layout_toRightOf="@id/icon"
-                    android:orientation="vertical"
-                    android:paddingTop="4dp">
-
-                    <TextView
-                        android:id="@+id/title"
-                        style="@style/header_text"
-                        android:layout_marginBottom="6dp" />
-
-                    <TextView
-                        android:id="@+id/description"
-                        style="@style/normal_text" />
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/temperature"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:textSize="21sp"
-                    android:textStyle="bold" />
-            </RelativeLayout>
-
-            <LinearLayout
-                android:id="@+id/rain_ll"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/forecast_item_height"
-                android:layout_gravity="center_vertical"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginRight="8dp"
-                    android:src="@drawable/ic_rain" />
-
-                <TextView
-                    android:id="@+id/rain"
-                    style="@style/normal_text" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/humidity_ll"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/forecast_item_height"
-                android:layout_gravity="center_vertical"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginRight="8dp"
-                    android:src="@drawable/ic_humidity" />
-
-                <TextView
-                    android:id="@+id/humidity"
-                    style="@style/normal_text" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/wind_ll"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/forecast_item_height"
-                android:layout_gravity="center_vertical"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginRight="8dp"
-                    android:src="@drawable/ic_wind" />
-
-                <TextView
-                    android:id="@+id/wind"
-                    style="@style/normal_text" />
-            </LinearLayout>
-
-        </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
-
+        android:layout_height="match_parent"/>
 
 </LinearLayout>

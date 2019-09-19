@@ -7,7 +7,6 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import gr.efthymiou.petros.backbaseassignment.R;
@@ -28,7 +27,7 @@ public class BookmarksRecyclerAdapter extends RecyclerView.Adapter<BookmarksRecy
     public BookmarksRecyclerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
                                                                   int viewType) {
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.bookmark_item, parent, false);
+                .inflate(R.layout.view_bookmark_item, parent, false);
         return new ViewHolder(v);
     }
 
