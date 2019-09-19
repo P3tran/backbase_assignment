@@ -14,10 +14,10 @@ public class ForecastDomain {
     private double tempMax;
     private int humidity;
     private String icon;
-    private double windSpeed;
-    private double windDeg;
-    private double threeHourRain;
-    private double oneHourRain;
+    private Double windSpeed;
+    private Double windDeg;
+    private Double threeHourRain;
+    private Double oneHourRain;
 
     public long getTimestamp() {
         return timestamp;
@@ -91,32 +91,36 @@ public class ForecastDomain {
         this.humidity = humidity;
     }
 
-    public double getWindSpeed() {
+    public Double getWindSpeed() {
         return windSpeed;
     }
 
-    public void setWindSpeed(double windSpeed) {
+    public void setWindSpeed(Double windSpeed) {
         this.windSpeed = windSpeed;
     }
 
-    public double getWindDeg() {
+    public Double getWindDeg() {
         return windDeg;
     }
 
-    public void setWindDeg(double windDeg) {
+    public void setWindDeg(Double windDeg) {
         this.windDeg = windDeg;
     }
 
-    public double getThreeHourRain() {
+    public Double getThreeHourRain() {
         return threeHourRain;
     }
 
-    public void setThreeHourRain(double threeHourRain) {
+    public void setThreeHourRain(Double threeHourRain) {
         this.threeHourRain = threeHourRain;
     }
 
-    public double getOneHourRain() {
+    public Double getOneHourRain() {
         return oneHourRain;
+    }
+
+    public void setOneHourRain(Double oneHourRain) {
+        this.oneHourRain = oneHourRain;
     }
 
     public void setOneHourRain(double oneHourRain) {
@@ -148,7 +152,18 @@ public class ForecastDomain {
         this.oneHourRain = oneHourRain;
     }
 
-
+    public ForecastDomain(long timestamp, String date, int weatherId, String title, String description, double temp, double tempMin, double tempMax, int humidity, String icon) {
+        this.timestamp = timestamp;
+        this.date = date;
+        this.weatherId = weatherId;
+        this.title = title;
+        this.description = description;
+        this.temp = temp;
+        this.tempMin = tempMin;
+        this.tempMax = tempMax;
+        this.humidity = humidity;
+        this.icon = icon;
+    }
 
     @Override
     public String toString() {

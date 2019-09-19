@@ -12,6 +12,7 @@ import java.util.List;
 
 import gr.efthymiou.petros.backbaseassignment.R;
 import gr.efthymiou.petros.backbaseassignment.base.BaseFragment;
+import gr.efthymiou.petros.backbaseassignment.base.MainActivity;
 import gr.efthymiou.petros.backbaseassignment.features.bookmarks.Bookmark;
 import gr.efthymiou.petros.backbaseassignment.features.weather.models.Forecast;
 
@@ -65,6 +66,7 @@ public class WeatherForecastFragment extends BaseFragment implements WeatherFore
 
     @Override
     public void displayError(int errorMessageId) {
-        //TODO
+        if (getActivity() != null)
+            ((MainActivity) getActivity()).displaySnackbar(getString(R.string.general_error));
     }
 }

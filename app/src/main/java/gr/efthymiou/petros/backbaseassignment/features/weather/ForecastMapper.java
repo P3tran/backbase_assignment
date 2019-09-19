@@ -82,16 +82,25 @@ public class ForecastMapper implements Function<List<ForecastDomain>, List<Forec
         }
     }
 
-    private int mapRainVisibility(double oneHourRain, double threeHourRain) {
+    private int mapRainVisibility(Double oneHourRain, Double threeHourRain) {
+        if (oneHourRain == null && threeHourRain == null)
+            return View.GONE;
         return View.VISIBLE;
     }
 
-    private String mapRainInfo(double oneHourRain, double threeHourRain) {
-        return "1h: " + oneHourRain + ", 3h: " + threeHourRain;
+    private String mapRainInfo(Double oneHourRain, Double threeHourRain) {
+        String result = "";
+        if (oneHourRain != null)
+            result = "1h: " + oneHourRain;
+        if (threeHourRain != null)
+            result = result + " 3h: " + threeHourRain;
+        return result;
     }
 
-    private String mapWindInfo(double windSpeed) {
-        return windSpeed + " m/s";
+    private String mapWindInfo(Double windSpeed) {
+        if (windSpeed != null)
+            return windSpeed + " m/s";
+        return "-";
     }
 
     private String mapHumidity(int humidity) {

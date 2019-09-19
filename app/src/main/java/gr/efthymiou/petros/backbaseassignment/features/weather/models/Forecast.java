@@ -109,6 +109,8 @@ public class Forecast implements Parcelable {
         this.rainSelectionVisibility = rainSelectionVisibility;
     }
 
+
+
     protected Forecast(Parcel in) {
         date = in.readString();
         title = in.readString();

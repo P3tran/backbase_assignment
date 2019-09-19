@@ -28,7 +28,7 @@ public class ForecastMapperDomain implements Function<Forecast5daysRaw, List<For
     }
 
     private ForecastDomain mapRawToDomain(ForecastRaw raw) {
-        return new ForecastDomain(
+        ForecastDomain result = new ForecastDomain(
                 raw.getTimestamp(),
                 raw.getDate(),
                 raw.getWeather().get(0).getId(),
@@ -38,11 +38,16 @@ public class ForecastMapperDomain implements Function<Forecast5daysRaw, List<For
                 raw.getMain().getTempMin(),
                 raw.getMain().getTempMax(),
                 raw.getMain().getHumidity(),
-                raw.getWeather().get(0).getIcon(),
-                raw.getWind().getSpeed(),
-                raw.getWind().getDeg(),
-                raw.getRain().getThreeHours(),
-                raw.getRain().getOneHour()
+                raw.getWeather().get(0).getIcon()
         );
+        if (raw.getRain() != null) {
+            result.setOneHourRain(raw.getRain().getOneHour());
+            result.setThreeHourRain(raw.getRain().getThreeHours());
+        }
+        if (raw.getWind() != null) {
+            result.setWindSpeed(raw.getWind().getSpeed());
+            result.setWindDeg(raw.getWind().getDeg());
+        }
+        return result;
     }
 }
