@@ -30,7 +30,7 @@ public class MainActivityImpl extends AppCompatActivity implements MainActivity 
         if (savedInstanceState == null)
             getSupportFragmentManager()
                     .beginTransaction()
-                    .add(R.id.fragment_container, new BookmarksFragment())
+                    .add(R.id.fragment_container, BookmarksFragment.newInstance())
                     .commit();
     }
 

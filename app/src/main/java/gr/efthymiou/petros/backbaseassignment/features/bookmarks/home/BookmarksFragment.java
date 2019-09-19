@@ -69,7 +69,7 @@ public class BookmarksFragment extends BaseFragment implements BookmarksView {
 
     private void setupFab() {
         mAddBookmarkFab.setOnClickListener(view1 -> {
-            flipOpenFragment(new AddBookmarkMapFragment());
+            flipOpenFragment(AddBookmarkMapFragment.newInstance());
         });
     }
 
@@ -129,6 +129,10 @@ public class BookmarksFragment extends BaseFragment implements BookmarksView {
     @Override
     public void displayError(int errorMessageId) {
         Snackbar.make(mRoot, getString(R.string.general_error), Snackbar.LENGTH_LONG).show();
+    }
+
+    public static BookmarksFragment newInstance() {
+        return new BookmarksFragment();
     }
 
     @Override

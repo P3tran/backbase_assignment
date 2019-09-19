@@ -186,4 +186,8 @@ public class AddBookmarkMapFragment extends BaseFragment implements OnMapReadyCa
         else
             presenter.addBookmark(mMap.getCameraPosition().target, mLocation.getText().toString(), getContext());
     }
+
+    public static AddBookmarkMapFragment newInstance() {
+        return new AddBookmarkMapFragment();
+    }
 }

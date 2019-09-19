@@ -22,7 +22,23 @@ public class DayForecastFragment extends BaseFragment {
     private RecyclerView forecastsRv;
 
 
-    public DayForecastFragment() { }
+    public DayForecastFragment() {
+    }
+
+    public static DayForecastFragment newInstance(DayForecast dayForecast) {
+        DayForecastFragment fragment = new DayForecastFragment();
+        Bundle args = new Bundle();
+        args.putParcelable(DAY_FORECAST, dayForecast);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    public static DayForecastFragment newInstance() {
+        DayForecastFragment fragment = new DayForecastFragment();
+        Bundle args = new Bundle();
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -33,23 +49,18 @@ public class DayForecastFragment extends BaseFragment {
     }
 
     private void addValuesToViews() {
-        mDate.setText(dayForecast.getDate());
-        mTemperatureMinMax.setText(dayForecast.getTempMinMax());
+        if (dayForecast != null) {
+            mDate.setText(dayForecast.getDate());
+            mTemperatureMinMax.setText(dayForecast.getTempMinMax());
+        }
     }
 
     private void setupRecyclerView() {
-        forecastsRv.setLayoutManager(new LinearLayoutManager(getContext()));
-        ForecastsRecyclerAdapter adapter = new ForecastsRecyclerAdapter(dayForecast.getHourlyForecasts(), getContext());
-        forecastsRv.setAdapter(adapter);
-    }
-
-
-    public static DayForecastFragment newInstance(DayForecast dayForecast) {
-        DayForecastFragment fragment = new DayForecastFragment();
-        Bundle args = new Bundle();
-        args.putParcelable(DAY_FORECAST, dayForecast);
-        fragment.setArguments(args);
-        return fragment;
+        if (dayForecast != null) {
+            forecastsRv.setLayoutManager(new LinearLayoutManager(getContext()));
+            ForecastsRecyclerAdapter adapter = new ForecastsRecyclerAdapter(dayForecast.getHourlyForecasts(), getContext());
+            forecastsRv.setAdapter(adapter);
+        }
     }
 
     @Override

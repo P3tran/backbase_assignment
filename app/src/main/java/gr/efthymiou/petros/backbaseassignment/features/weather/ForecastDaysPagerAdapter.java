@@ -22,7 +22,9 @@ public class ForecastDaysPagerAdapter extends FragmentStatePagerAdapter {
     @NonNull
     @Override
     public Fragment getItem(int position) {
-        return DayForecastFragment.newInstance(dayForecasts.get(position));
+        if (position < dayForecasts.size())
+            return DayForecastFragment.newInstance(dayForecasts.get(position));
+        return DayForecastFragment.newInstance();
     }
 
     @Override
