@@ -19,17 +19,17 @@ public class DayForecastMapperShould {
 
     @Test
     public void mapTemperature() {
-        assertEquals("10 &#8451;", resultForecast.getTemp());
+        assertEquals("10 ℃", resultForecast.getTemp());
     }
 
     @Test
     public void mapTemperatureMinMax() {
-        assertEquals("5 &#8451; - 15 &#8451;", resultDay.getTempMinMax());
+        assertEquals("5 ℃ - 15 ℃", resultDay.getTempMinMax());
     }
 
     @Test
-    public void mapDateToddMMyyyy() {
-        assertEquals("22/09/2019", resultForecast.getTime());
+    public void mapDateToTime() {
+        assertEquals("06:00", resultForecast.getTime());
     }
 
     @Test
