@@ -1,23 +1,18 @@
 package gr.efthymiou.petros.backbaseassignment.base;
 
 import android.os.Bundle;
-
-import com.google.android.gms.maps.MapFragment;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+import android.view.MenuItem;
+import android.view.ViewGroup;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.ViewGroup;
+import com.google.android.material.snackbar.Snackbar;
 
 import gr.efthymiou.petros.backbaseassignment.R;
-import gr.efthymiou.petros.backbaseassignment.features.bookmarks.Bookmark;
 import gr.efthymiou.petros.backbaseassignment.features.bookmarks.home.BookmarksFragment;
 import gr.efthymiou.petros.backbaseassignment.features.bookmarks.map.AddBookmarkMapFragment;
+import gr.efthymiou.petros.backbaseassignment.features.help.HelpFragment;
 import gr.efthymiou.petros.backbaseassignment.features.weather.WeatherForecastFragment;
 
 public class MainActivityImpl extends AppCompatActivity implements MainActivity {
@@ -42,13 +37,13 @@ public class MainActivityImpl extends AppCompatActivity implements MainActivity 
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
-            case android.R.id.home :
+            case android.R.id.home:
                 onBackPressed();
                 return true;
-            case R.id.action_settings :
+            case R.id.action_settings:
                 return true;
-            case R.id.action_help :
-                return true;
+            case R.id.action_help:
+                flipOpenFragment(HelpFragment.newInstance());
         }
 
         return super.onOptionsItemSelected(item);
@@ -68,15 +63,19 @@ public class MainActivityImpl extends AppCompatActivity implements MainActivity 
 
     @Override
     public void updateNavigation(String fragmentName) {
-        if(fragmentName.equals(BookmarksFragment.class.getSimpleName())) {
+        if (fragmentName.equals(BookmarksFragment.class.getSimpleName())) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(false);
             setTitle(R.string.bookmarks_fragment_title);
-        } else if(fragmentName.equals(AddBookmarkMapFragment.class.getSimpleName())) {
+        } else if (fragmentName.equals(AddBookmarkMapFragment.class.getSimpleName())) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             setTitle(R.string.add_bookmark_map_fragment_title);
-        } else if(fragmentName.equals(WeatherForecastFragment.class.getSimpleName())) {
+        } else if (fragmentName.equals(WeatherForecastFragment.class.getSimpleName())) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             setTitle(R.string.weather_forecast_fragment_title);
+        } else if (fragmentName.equals(HelpFragment.class.getSimpleName())) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            setTitle(R.string.help_fragment_title);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
     }
 
