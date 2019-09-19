@@ -38,6 +38,7 @@ public class ForecastsRecyclerAdapter extends RecyclerView.Adapter<ForecastsRecy
         holder.mWindInfo.setText(forecasts.get(position).getWindInfo());
         holder.mRainInfo.setText(forecasts.get(position).getRainInfo());
         holder.mRainLl.setVisibility(forecasts.get(position).getRainSelectionVisibility());
+        holder.mTime.setText(forecasts.get(position).getTime());
     }
 
     @Override

@@ -57,7 +57,7 @@ public class DayForecastMapper implements Function<List<ForecastDomain>, List<Da
 
     private Forecast mapDomainToUI(ForecastDomain input) {
         return new Forecast(
-                mapDate(input.getTimestamp()),
+                mapTime(input.getTimestamp()),
                 input.getTitle(),
                 input.getDescription(),
                 mapTemperature(input.getTemp()),
@@ -138,15 +138,15 @@ public class DayForecastMapper implements Function<List<ForecastDomain>, List<Da
     }
 
     private String mapTempMinMax(double tempMin, double tempMax) {
-        return Math.round(tempMin) + " &#8451; - " + Math.round(tempMax) + " &#8451;";
+        return Math.round(tempMin) + " ℃ - " + Math.round(tempMax) + " ℃";
     }
 
     private String mapTemperature(double temp) {
-        return Math.round(temp) + " &#8451;";
+        return Math.round(temp) + " ℃";
     }
 
-    private String mapDate(long timestamp) {
-        return DateUtils.formatDate(timestamp, "dd/MM/yyyy");
+    private String mapTime(long timestamp) {
+        return DateUtils.formatDate(timestamp, "HH:mm");
     }
 
 

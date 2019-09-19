@@ -3,14 +3,13 @@ package gr.efthymiou.petros.backbaseassignment.features.weather;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import java.util.List;
 
-import gr.efthymiou.petros.backbaseassignment.features.weather.day.DayForecastFragment;
 import gr.efthymiou.petros.backbaseassignment.features.weather.models.DayForecast;
 
-public class ForecastDaysPagerAdapter extends FragmentPagerAdapter {
+public class ForecastDaysPagerAdapter extends FragmentStatePagerAdapter {
 
     private List<DayForecast> dayForecasts;
 

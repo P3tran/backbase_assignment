@@ -1,21 +1,18 @@
-package gr.efthymiou.petros.backbaseassignment.features.weather.day;
+package gr.efthymiou.petros.backbaseassignment.features.weather;
 
 
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import gr.efthymiou.petros.backbaseassignment.R;
 import gr.efthymiou.petros.backbaseassignment.base.BaseFragment;
-import gr.efthymiou.petros.backbaseassignment.features.weather.ForecastsRecyclerAdapter;
 import gr.efthymiou.petros.backbaseassignment.features.weather.models.DayForecast;
-import gr.efthymiou.petros.backbaseassignment.features.weather.models.Forecast;
 
 public class DayForecastFragment extends BaseFragment {
     private static final String DAY_FORECAST = "DAY_FORECAST";
@@ -31,8 +28,17 @@ public class DayForecastFragment extends BaseFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         instantiateViews(view);
+        addValuesToViews();
+        setupRecyclerView();
+    }
+
+    private void addValuesToViews() {
         mDate.setText(dayForecast.getDate());
         mTemperatureMinMax.setText(dayForecast.getTempMinMax());
+    }
+
+    private void setupRecyclerView() {
+        forecastsRv.setLayoutManager(new LinearLayoutManager(getContext()));
         ForecastsRecyclerAdapter adapter = new ForecastsRecyclerAdapter(dayForecast.getHourlyForecasts(), getContext());
         forecastsRv.setAdapter(adapter);
     }

@@ -6,7 +6,7 @@
     android:background="@color/screen_background"
     android:orientation="vertical"
     android:padding="@dimen/screen_vertical_padding"
-    tools:context=".features.weather.day.DayForecastFragment">
+    tools:context=".features.weather.DayForecastFragment">
 
     <TextView
         android:id="@+id/date"
