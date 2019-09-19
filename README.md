@@ -7,7 +7,7 @@ I created Smooth Weather as part of Backbase interview process. It is an Android
 Native Android application.
 
 ## Launch
-To build and launch the ap you will need the latest Android Studio and SDK : https://developer.android.com/studio
+To build and launch the application you will need the latest Android Studio and SDK : https://developer.android.com/studio
 
 ## Test
 You can run the automated unit tests from Android studio or with the command gradlew test.
