@@ -8,6 +8,35 @@
     tools:context=".features.settings.SettingsFragment">
 
     <LinearLayout
+        android:id="@+id/imperial_ll"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/settings_item_height"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="8dp"
+            android:src="@drawable/ic_imperial">
+
+        </ImageView>
+
+        <TextView
+            style="@style/header_text"
+            android:text="@string/imperial_system" />
+
+        <Switch
+            android:id="@+id/imperial_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="12dp"
+            android:layout_marginLeft="12dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/delete_bookmarks_ll"
         android:layout_width="match_parent"
         android:layout_height="@dimen/settings_item_height"
@@ -27,5 +56,6 @@
             android:text="@string/settings_delete_bookmarks" />
 
     </LinearLayout>
+
 
 </LinearLayout>

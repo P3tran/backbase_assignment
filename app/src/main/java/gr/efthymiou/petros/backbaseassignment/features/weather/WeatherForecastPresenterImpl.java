@@ -1,8 +1,11 @@
 package gr.efthymiou.petros.backbaseassignment.features.weather;
 
+import android.content.Context;
+
 import java.util.List;
 
 import gr.efthymiou.petros.backbaseassignment.R;
+import gr.efthymiou.petros.backbaseassignment.application.PreferenceDao;
 import gr.efthymiou.petros.backbaseassignment.features.bookmarks.Bookmark;
 import gr.efthymiou.petros.backbaseassignment.features.weather.models.ForecastDomain;
 
@@ -13,15 +16,15 @@ public class WeatherForecastPresenterImpl implements WeatherForecastPresenter,
     private WeatherForecastInteractor interactor;
     private DayForecastMapper mapper;
 
-    public WeatherForecastPresenterImpl(WeatherForecastView view) {
+    public WeatherForecastPresenterImpl(WeatherForecastView view, Context context) {
         this.view = view;
         interactor = new WeatherForecastInteractorImpl();
-        mapper = new DayForecastMapper();
+        mapper = new DayForecastMapper((Boolean) PreferenceDao.USER_IMPERIAL_SYSTEM.getValue(context));
     }
 
     @Override
-    public void getForecast(Bookmark bookmark) {
-        interactor.getForecast(bookmark.getCoord(), this);
+    public void getForecast(Bookmark bookmark, Context ctx) {
+        interactor.getForecast(bookmark.getCoord(), this, ctx);
     }
 
     @Override

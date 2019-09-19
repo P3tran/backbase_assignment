@@ -16,6 +16,14 @@ import gr.efthymiou.petros.backbaseassignment.utils.DateUtils;
 
 public class DayForecastMapper implements Function<List<ForecastDomain>, List<DayForecast>> {
 
+    private boolean useImperial = false;
+
+    public DayForecastMapper() { }
+
+    public DayForecastMapper(boolean useImperial) {
+        this.useImperial = useImperial;
+    }
+
     @Override
     public List<DayForecast> apply(List<ForecastDomain> input) {
 
@@ -108,11 +116,10 @@ public class DayForecastMapper implements Function<List<ForecastDomain>, List<Da
                 return R.mipmap.ic_50n;
             default:
                 return R.mipmap.ic_50d;
-
         }
     }
 
-    private int mapRainVisibility( Double threeHourRain) {
+    private int mapRainVisibility(Double threeHourRain) {
         if (threeHourRain == null)
             return View.GONE;
         return View.VISIBLE;
@@ -128,15 +135,18 @@ public class DayForecastMapper implements Function<List<ForecastDomain>, List<Da
     private String mapWindInfo(Double windSpeed, Double deg) {
         String direction = "";
         if (deg >= 0.0 && deg <= 90.0)
-            direction = ", N/E";
+            direction = "N/E";
         else if (deg >= 90.0 && deg <= 180.0)
-            direction = ", S/E";
+            direction = "S/E";
         else if (deg >= 180 && deg <= 270)
-            direction = ", S/W";
+            direction = "S/W";
         else if (deg >= 270 && deg <= 396)
-            direction = ", N/W";
+            direction = "N/W";
+        String metric = "m/s";
+        if (useImperial)
+            metric = "m/h";
         if (windSpeed != null)
-            return windSpeed + " m/s" + direction;
+            return String.format("%s %s, %s", windSpeed, metric, direction);
         return "-";
     }
 
@@ -150,15 +160,21 @@ public class DayForecastMapper implements Function<List<ForecastDomain>, List<Da
         for (ForecastDomain dm : inputs) {
             if (dm.getTempMin() < min)
                 min = dm.getTempMin();
-            if(dm.getTempMax() > max)
+            if (dm.getTempMax() > max)
                 max = dm.getTempMax();
         }
+        String symbol = " ℃";
+        if (useImperial)
+            symbol = " ℉";
 
-        return Math.round(min) + " ℃ - " + Math.round(max) + " ℃";
+        return Math.round(min) + symbol + " - " + Math.round(max) + symbol;
     }
 
     private String mapTemperature(double temp) {
-        return Math.round(temp) + " ℃";
+        String symbol = " ℃";
+        if (useImperial)
+            symbol = " ℉";
+        return Math.round(temp) + symbol;
     }
 
     private String mapTime(long timestamp) {

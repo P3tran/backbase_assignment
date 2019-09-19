@@ -1,5 +1,6 @@
 package gr.efthymiou.petros.backbaseassignment.features.weather;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -11,6 +12,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Locale;
 
+import gr.efthymiou.petros.backbaseassignment.application.PreferenceDao;
 import gr.efthymiou.petros.backbaseassignment.features.bookmarks.Coord;
 import gr.efthymiou.petros.backbaseassignment.features.weather.models.network.Forecast5daysRaw;
 import gr.efthymiou.petros.backbaseassignment.utils.Const;
@@ -21,10 +23,10 @@ public class WeatherForecastInteractorImpl implements WeatherForecastInteractor 
     private ForecastMapperDomain mapper = new ForecastMapperDomain(new ForecastRawValidator());
 
     @Override
-    public void getForecast(Coord coord, GetForecastFinishListener listener) {
+    public void getForecast(Coord coord, GetForecastFinishListener listener, Context ctx) {
         AsyncTask.execute(() -> {
             try {
-                Forecast5daysRaw response = fetchForecast(coord);
+                Forecast5daysRaw response = fetchForecast(coord, ctx);
                 if (response != null) {
                     Log.d(LogUtils.NETWORKING_TAG, "parsed forecast: " + response.toString());
                     listener.onSuccess(mapper.apply(response));
@@ -38,8 +40,11 @@ public class WeatherForecastInteractorImpl implements WeatherForecastInteractor 
         });
     }
 
-    private Forecast5daysRaw fetchForecast(Coord coord) throws Exception {
-        String stringUrl = String.format(Locale.getDefault(), "http://api.openweathermap.org/data/2.5/forecast?lat=%s&lon=%s&appid=%s&units=metric", coord.getLat(), coord.getLon(), Const.WEATHER_API_KEY);
+    private Forecast5daysRaw fetchForecast(Coord coord, Context ctx) throws Exception {
+        String system = "metric";
+        if ((Boolean) PreferenceDao.USER_IMPERIAL_SYSTEM.getValue(ctx))
+            system = "imperial";
+        String stringUrl = String.format(Locale.getDefault(), "http://api.openweathermap.org/data/2.5/forecast?lat=%s&lon=%s&appid=%s&units=%s", coord.getLat(), coord.getLon(), Const.WEATHER_API_KEY, system);
         URL serverUrl = new URL(stringUrl);
         HttpURLConnection httpConnection = (HttpURLConnection) serverUrl.openConnection();
         httpConnection.setRequestMethod("GET");

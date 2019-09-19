@@ -70,8 +70,8 @@ public class WeatherForecastFragment extends BaseFragment implements WeatherFore
         if (getArguments() != null) {
             bookmark = getArguments().getParcelable(BOOKMARK);
         }
-        WeatherForecastPresenter presenter = new WeatherForecastPresenterImpl(this);
-        presenter.getForecast(bookmark);
+        WeatherForecastPresenter presenter = new WeatherForecastPresenterImpl(this, getContext());
+        presenter.getForecast(bookmark, getContext());
     }
 
     @Override

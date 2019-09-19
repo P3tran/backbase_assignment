@@ -6,36 +6,48 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import gr.efthymiou.petros.backbaseassignment.R;
 import gr.efthymiou.petros.backbaseassignment.application.BaseFragment;
+import gr.efthymiou.petros.backbaseassignment.application.PreferenceDao;
 
 
 public class SettingsFragment extends BaseFragment implements SettingsView {
 
     private SettingsPresenter presenter;
+    private Switch mImperialSwitch;
+
+
+    public SettingsFragment() {
+    }
+
+    public static SettingsFragment newInstance() {
+        return new SettingsFragment();
+    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         presenter = new SettingsPresenterImpl(this);
-        prepareVIews(view);
+        prepareViews(view);
     }
 
-    private void prepareVIews(@NonNull View view) {
+    private void prepareViews(@NonNull View view) {
         ViewGroup mOptionDeleteAllBookmarks = view.findViewById(R.id.delete_bookmarks_ll);
 
-        DialogInterface.OnClickListener deleteAllBookmarksButton = new DialogInterface.OnClickListener(){
+        DialogInterface.OnClickListener deleteAllBookmarksButton = new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 presenter.deleteAllBookmarks(getContext());
             }
         };
 
-        DialogInterface.OnClickListener dismissButton = new DialogInterface.OnClickListener(){
+        DialogInterface.OnClickListener dismissButton = new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
@@ -51,6 +63,21 @@ public class SettingsFragment extends BaseFragment implements SettingsView {
             alertDialog.setCancelable(false);
             alertDialog.show();
         });
+
+        mImperialSwitch = view.findViewById(R.id.imperial_switch);
+        if (getContext() != null) {
+            mImperialSwitch.setChecked((Boolean) PreferenceDao.USER_IMPERIAL_SYSTEM.getValue(getContext()));
+        }
+
+        mImperialSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (getContext() != null) {
+                if (isChecked)
+                    PreferenceDao.USER_IMPERIAL_SYSTEM.setValue(true, getContext());
+                else
+                    PreferenceDao.USER_IMPERIAL_SYSTEM.setValue(false, getContext());
+            }
+        });
+
     }
 
     @Override
@@ -66,11 +93,5 @@ public class SettingsFragment extends BaseFragment implements SettingsView {
     @Override
     public void displayError(int errorMessageId) {
         displaySnackbar(getString(errorMessageId));
-    }
-
-    public SettingsFragment() { }
-
-    public static SettingsFragment newInstance() {
-        return new SettingsFragment();
     }
 }
