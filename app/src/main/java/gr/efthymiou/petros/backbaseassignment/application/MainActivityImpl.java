@@ -27,11 +27,11 @@ public class MainActivityImpl extends AppCompatActivity implements MainActivity 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         mRoot = findViewById(R.id.activity_root);
-
-        getSupportFragmentManager()
-                .beginTransaction()
-                .add(R.id.fragment_container, new BookmarksFragment())
-                .commit();
+        if (savedInstanceState == null)
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .add(R.id.fragment_container, new BookmarksFragment())
+                    .commit();
     }
 
     @Override
