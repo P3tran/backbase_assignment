@@ -19,6 +19,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/forecast_item_height"
+        android:layout_gravity="center_horizontal"
         android:gravity="center"
         android:orientation="horizontal">
 
