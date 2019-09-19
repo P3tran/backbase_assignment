@@ -14,7 +14,6 @@ import java.util.List;
 
 import gr.efthymiou.petros.backbaseassignment.R;
 import gr.efthymiou.petros.backbaseassignment.application.BaseFragment;
-import gr.efthymiou.petros.backbaseassignment.application.MainActivity;
 import gr.efthymiou.petros.backbaseassignment.features.bookmarks.Bookmark;
 import gr.efthymiou.petros.backbaseassignment.features.weather.models.DayForecast;
 
@@ -47,6 +46,8 @@ public class WeatherForecastFragment extends BaseFragment implements WeatherFore
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initilizeViews(view);
+        if (getActivity() != null)
+            getActivity().setTitle(String.format("%s %s", bookmark.getName(), getActivity().getTitle()));
     }
 
     private void initilizeViews(@NonNull View view) {
