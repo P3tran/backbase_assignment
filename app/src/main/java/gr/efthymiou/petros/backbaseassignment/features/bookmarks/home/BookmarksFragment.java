@@ -30,7 +30,7 @@ public class BookmarksFragment extends BaseFragment implements BookmarksView {
     private RecyclerView mBookmarksRv;
     private BookmarksPresenter presenter;
     private FloatingActionButton mAddBookmarkFab;
-    private ViewGroup mRoot;
+    private ViewGroup mRoot, mEmptyState;
     private BookmarksRecyclerAdapter rvAdapter;
 
     public BookmarksFragment() {
@@ -47,13 +47,13 @@ public class BookmarksFragment extends BaseFragment implements BookmarksView {
         mBookmarksRv = view.findViewById(R.id.bookmarks_rv);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         mBookmarksRv.setLayoutManager(layoutManager);
-
-        presenter = new BookmarksPresenterImpl(this);
-        presenter.getBookmarks(getContext());
         mRoot = view.findViewById(R.id.bookmarks_root);
         mAddBookmarkFab = view.findViewById(R.id.fab);
+        mEmptyState = view.findViewById(R.id.bookmarks_empty_state);
         //setupRecyclerView();
         setupFab();
+        presenter = new BookmarksPresenterImpl(this);
+        presenter.getBookmarks(getContext());
     }
 
     private void setupFab() {
@@ -97,6 +97,7 @@ public class BookmarksFragment extends BaseFragment implements BookmarksView {
     private void undoDelete(Bookmark bookmark) {
         presenter.restoreBookmark(bookmark, getContext());
         rvAdapter.undoDelete(bookmark);
+        hideEmptyState();
     }
 
     @Override
@@ -104,15 +105,11 @@ public class BookmarksFragment extends BaseFragment implements BookmarksView {
         inflater.inflate(R.menu.menu_main, menu);
     }
 
-
-    @Override
-    public void displayEmptyState() {
-        //TODO
-    }
-
     @Override
     public void bookmarkDeletedSuccess(Bookmark bookmark) {
         showUndoSnackbar(bookmark);
+        if (rvAdapter.getBookmarks().size() == 0)
+            displayEmptyState();
     }
 
     @Override
@@ -122,6 +119,16 @@ public class BookmarksFragment extends BaseFragment implements BookmarksView {
 
     @Override
     public void displayError(int errorMessageId) {
-        //TODO
+        Snackbar.make(mRoot, getString(R.string.general_error), Snackbar.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void displayEmptyState() {
+        mEmptyState.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideEmptyState() {
+        mEmptyState.setVisibility(View.GONE);
     }
 }

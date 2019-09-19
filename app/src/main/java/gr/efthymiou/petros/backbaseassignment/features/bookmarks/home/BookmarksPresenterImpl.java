@@ -33,12 +33,18 @@ public class BookmarksPresenterImpl implements BookmarksPresenter,
 
     @Override
     public void restoreBookmark(Bookmark bookmark, Context ctx) {
-        interactor.restoreBookmark(bookmark,  ctx);
+        interactor.restoreBookmark(bookmark, ctx);
     }
 
     @Override
     public void onSuccess(List<Bookmark> bookmarks) {
-        view.displayBookmarks(bookmarks);
+        if (view != null) {
+            if (bookmarks.size() > 0) {
+                view.displayBookmarks(bookmarks);
+                view.hideEmptyState();
+            }else
+                view.displayEmptyState();
+        }
     }
 
     @Override

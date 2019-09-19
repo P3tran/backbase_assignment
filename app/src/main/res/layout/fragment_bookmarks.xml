@@ -1,18 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/bookmarks_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".features.forecasts.home.BookmarksFragment">
+    android:orientation="vertical">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/bookmarks_rv"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingStart="@dimen/screen_vertical_padding"
-        android:paddingEnd="@dimen/screen_vertical_padding" />
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/bookmarks_rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingStart="@dimen/screen_vertical_padding"
+            android:paddingEnd="@dimen/screen_vertical_padding" />
+
+        <LinearLayout
+            android:id="@+id/bookmarks_empty_state"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:layout_marginRight="@dimen/screen_vertical_padding"
+            android:layout_marginEnd="@dimen/screen_vertical_padding"
+            android:layout_marginStart="@dimen/screen_vertical_padding">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:src="@drawable/ic_bookmark" />
+
+            <TextView
+                style="@style/header_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/start_by_bookmarking_a_location"
+                android:textSize="25sp"
+                android:gravity="center"
+                android:layout_marginBottom="100dp"/>
+
+        </LinearLayout>
+
+    </FrameLayout>
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

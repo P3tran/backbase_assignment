@@ -47,6 +47,8 @@ public class MainActivityImpl extends AppCompatActivity implements MainActivity 
                 return true;
             case R.id.action_settings :
                 return true;
+            case R.id.action_help :
+                return true;
         }
 
         return super.onOptionsItemSelected(item);

@@ -34,18 +34,14 @@ public class BookmarksRecyclerAdapter extends RecyclerView.Adapter<BookmarksRecy
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         holder.name.setText(bookmarks.get(position).getName());
-        holder.background.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                listener.onBookmarkClicked(bookmarks.get(position));
-            }
-        });
+        holder.background.setOnClickListener(v -> listener.onBookmarkClicked(bookmarks.get(position)));
     }
 
     public void deleteItem(int position) {
-        listener.onBookmarkDeleted(bookmarks.get(position));
-        latestDeletedPosition = position;
+        Bookmark deletedBookmark = bookmarks.get(position);
         bookmarks.remove(position);
+        listener.onBookmarkDeleted(deletedBookmark);
+        latestDeletedPosition = position;
         notifyItemRemoved(position);
     }
 

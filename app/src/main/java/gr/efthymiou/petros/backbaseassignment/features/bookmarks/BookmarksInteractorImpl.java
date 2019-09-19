@@ -15,8 +15,7 @@ public class BookmarksInteractorImpl implements BookmarksInteractor {
             BookmarksDatasource dataSource = new BookmarksDatasource(ctx);
             dataSource.open();
             List<Bookmark> bookmarks = dataSource.getAllBookmarks();
-            if (bookmarks.size() > 0)
-                listener.onSuccess(bookmarks);
+            listener.onSuccess(bookmarks);
             dataSource.close();
         } catch (Exception e) {
             listener.onFailure();
