@@ -110,6 +110,7 @@ public class BookmarksFragment extends BaseFragment implements BookmarksView {
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        menu.clear();
         inflater.inflate(R.menu.menu_main, menu);
     }
 
