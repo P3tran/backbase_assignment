@@ -16,6 +16,16 @@ public interface BookmarksInteractor {
 
     void deleteAllBookmarks(DeleteAllBookmarksFinishListener listener, Context ctx);
 
+    void filterBookmarks(String filterText, GetFilteredBookmarksFinishListener listener, Context ctx);
+
+    interface GetFilteredBookmarksFinishListener {
+
+        void onFilterSuccess(List<Bookmark> bookmarks);
+
+        void onFilter();
+
+    }
+
     interface GetBookmarksFinishListener {
 
         void onSuccess(List<Bookmark> bookmarks);

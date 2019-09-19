@@ -9,23 +9,58 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/bookmarks_rv"
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingStart="@dimen/screen_vertical_padding"
-            android:paddingEnd="@dimen/screen_vertical_padding" />
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/screen_vertical_padding"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="@dimen/screen_vertical_padding"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/seach_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="60dp" />
+
+                <ImageView
+                    android:id="@+id/search_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="8dp"
+                    android:src="@drawable/ic_search" />
+
+            </RelativeLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/bookmarks_rv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingStart="@dimen/screen_vertical_padding"
+                android:paddingEnd="@dimen/screen_vertical_padding" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/bookmarks_empty_state"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/screen_vertical_padding"
+            android:layout_marginEnd="@dimen/screen_vertical_padding"
+            android:layout_marginRight="@dimen/screen_vertical_padding"
+            android:background="@color/screen_background"
             android:gravity="center"
             android:orientation="vertical"
-            android:visibility="gone"
-            android:layout_marginRight="@dimen/screen_vertical_padding"
-            android:layout_marginEnd="@dimen/screen_vertical_padding"
-            android:layout_marginStart="@dimen/screen_vertical_padding">
+            android:visibility="gone">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -37,10 +72,10 @@
                 style="@style/header_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/start_by_bookmarking_a_location"
-                android:textSize="25sp"
+                android:layout_marginBottom="100dp"
                 android:gravity="center"
-                android:layout_marginBottom="100dp"/>
+                android:text="@string/start_by_bookmarking_a_location"
+                android:textSize="25sp" />
 
         </LinearLayout>
 

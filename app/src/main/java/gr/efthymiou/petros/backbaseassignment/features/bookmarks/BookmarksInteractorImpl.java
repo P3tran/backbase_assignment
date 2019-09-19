@@ -79,4 +79,18 @@ public class BookmarksInteractorImpl implements BookmarksInteractor {
             Log.e(TAG, "Failed to delete all bookmarks");
         }
     }
+
+    @Override
+    public void filterBookmarks(String filterText, GetFilteredBookmarksFinishListener listener, Context ctx) {
+        try {
+            BookmarksDatasource dataSource = new BookmarksDatasource(ctx);
+            dataSource.open();
+            List<Bookmark> bookmarks = dataSource.filterBookmarks(filterText.toUpperCase());
+            listener.onFilterSuccess(bookmarks);
+            dataSource.close();
+        } catch (Exception e) {
+            listener.onFilter();
+            Log.e(TAG, "Failed to retrieve all bookmarks");
+        }
+    }
 }

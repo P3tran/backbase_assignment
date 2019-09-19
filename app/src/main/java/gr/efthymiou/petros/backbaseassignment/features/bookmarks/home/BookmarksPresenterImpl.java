@@ -11,7 +11,8 @@ import gr.efthymiou.petros.backbaseassignment.features.bookmarks.BookmarksIntera
 
 public class BookmarksPresenterImpl implements BookmarksPresenter,
         BookmarksInteractor.GetBookmarksFinishListener,
-        BookmarksInteractor.DeleteBookmarkFinishListener {
+        BookmarksInteractor.DeleteBookmarkFinishListener,
+        BookmarksInteractor.GetFilteredBookmarksFinishListener {
 
     private BookmarksView view;
     private BookmarksInteractor interactor;
@@ -37,12 +38,17 @@ public class BookmarksPresenterImpl implements BookmarksPresenter,
     }
 
     @Override
+    public void filterBookmarks(String filterText, Context ctx) {
+        interactor.filterBookmarks(filterText, this, ctx);
+    }
+
+    @Override
     public void onSuccess(List<Bookmark> bookmarks) {
         if (view != null) {
             if (bookmarks.size() > 0) {
                 view.displayBookmarks(bookmarks);
                 view.hideEmptyState();
-            }else
+            } else
                 view.displayEmptyState();
         }
     }
@@ -65,5 +71,17 @@ public class BookmarksPresenterImpl implements BookmarksPresenter,
     public void onDeleteFailure() {
         if (view != null)
             view.bookmarkDeletedFailure();
+    }
+
+    @Override
+    public void onFilterSuccess(List<Bookmark> bookmarks) {
+        if (view != null)
+            view.displayBookmarks(bookmarks);
+
+    }
+
+    @Override
+    public void onFilter() {
+
     }
 }

@@ -5,6 +5,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,7 +21,6 @@ import java.util.List;
 
 import gr.efthymiou.petros.backbaseassignment.R;
 import gr.efthymiou.petros.backbaseassignment.application.BaseFragment;
-import gr.efthymiou.petros.backbaseassignment.application.MainActivity;
 import gr.efthymiou.petros.backbaseassignment.features.bookmarks.Bookmark;
 import gr.efthymiou.petros.backbaseassignment.features.bookmarks.map.AddBookmarkMapFragment;
 import gr.efthymiou.petros.backbaseassignment.features.weather.WeatherForecastFragment;
@@ -32,6 +33,8 @@ public class BookmarksFragment extends BaseFragment implements BookmarksView {
     private FloatingActionButton mAddBookmarkFab;
     private ViewGroup mRoot, mEmptyState;
     private BookmarksRecyclerAdapter rvAdapter;
+    private ImageView mSearchIcon;
+    private EditText mSearchEditText;
 
     public BookmarksFragment() {
     }
@@ -47,13 +50,21 @@ public class BookmarksFragment extends BaseFragment implements BookmarksView {
         mBookmarksRv = view.findViewById(R.id.bookmarks_rv);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         mBookmarksRv.setLayoutManager(layoutManager);
-        mRoot = view.findViewById(R.id.bookmarks_root);
-        mAddBookmarkFab = view.findViewById(R.id.fab);
-        mEmptyState = view.findViewById(R.id.bookmarks_empty_state);
-        //setupRecyclerView();
+        initializeViews(view);
         setupFab();
         presenter = new BookmarksPresenterImpl(this);
         presenter.getBookmarks(getContext());
+        mSearchIcon.setOnClickListener(v -> {
+            presenter.filterBookmarks(mSearchEditText.getText().toString(), getContext());
+        });
+    }
+
+    private void initializeViews(@NonNull View view) {
+        mRoot = view.findViewById(R.id.bookmarks_root);
+        mAddBookmarkFab = view.findViewById(R.id.fab);
+        mEmptyState = view.findViewById(R.id.bookmarks_empty_state);
+        mSearchIcon = view.findViewById(R.id.search_icon);
+        mSearchEditText = view.findViewById(R.id.seach_edit_text);
     }
 
     private void setupFab() {
@@ -62,7 +73,6 @@ public class BookmarksFragment extends BaseFragment implements BookmarksView {
         });
     }
 
-    //TODO Refactor
     void setupRecyclerView(List<Bookmark> bookmarks) {
         rvAdapter = new BookmarksRecyclerAdapter(bookmarks, new BookmarkClickListener() {
 

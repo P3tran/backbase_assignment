@@ -57,8 +57,23 @@ public class BookmarksDatasource {
         Cursor cursor = database.query(DatabaseHelper.TABLE_BOOKMARKS, allBookmarkColumns, null, null, null, null, null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            Bookmark comment = cursorToComment(cursor);
-            bookmarks.add(comment);
+            Bookmark bookmark = cursorToComment(cursor);
+            bookmarks.add(bookmark);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        Log.i(LogUtils.DATABASE_TAG, "retrieved bookmarks " + bookmarks.toString());
+        return bookmarks;
+    }
+
+    public List<Bookmark> filterBookmarks(String filter) {
+        List<Bookmark> bookmarks = new ArrayList<>();
+        Cursor cursor = database.query(DatabaseHelper.TABLE_BOOKMARKS, allBookmarkColumns, null, null, null, null, null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            Bookmark bookmark = cursorToComment(cursor);
+            if (bookmark.getName().toUpperCase().contains(filter))
+                bookmarks.add(bookmark);
             cursor.moveToNext();
         }
         cursor.close();
