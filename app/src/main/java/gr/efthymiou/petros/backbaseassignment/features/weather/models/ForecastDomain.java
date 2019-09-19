@@ -148,6 +148,8 @@ public class ForecastDomain {
         this.oneHourRain = oneHourRain;
     }
 
+
+
     @Override
     public String toString() {
         return "ForecastDomain{" +

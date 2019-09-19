@@ -2,6 +2,11 @@ package gr.efthymiou.petros.backbaseassignment.features.weather;
 
 
 import android.os.Bundle;
+import android.view.View;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.viewpager.widget.ViewPager;
 
 import java.util.List;
 
@@ -15,6 +20,8 @@ public class WeatherForecastFragment extends BaseFragment implements WeatherFore
 
     private Bookmark bookmark;
     private WeatherForecastPresenter presenter;
+    private ForecastDaysPagerAdapter adapter;
+    private ViewPager forecastsViewPager;
 
     public WeatherForecastFragment() {
     }
@@ -33,6 +40,12 @@ public class WeatherForecastFragment extends BaseFragment implements WeatherFore
     }
 
     @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        forecastsViewPager = view.findViewById(R.id.days_pager);
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
@@ -44,7 +57,10 @@ public class WeatherForecastFragment extends BaseFragment implements WeatherFore
 
     @Override
     public void displayForecast(List<Forecast> forecast) {
-        //TODO
+        if (getActivity() != null) {
+            adapter = new ForecastDaysPagerAdapter(getActivity().getSupportFragmentManager(), forecast);
+            forecastsViewPager.setAdapter(adapter);
+        }
     }
 
     @Override

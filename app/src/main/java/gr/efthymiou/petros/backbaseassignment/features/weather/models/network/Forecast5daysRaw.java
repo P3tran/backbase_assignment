@@ -21,10 +21,4 @@ public class Forecast5daysRaw {
         this.list = list;
     }
 
-    @Override
-    public String toString() {
-        return "Forecast5daysRaw{" +
-                "list=" + list +
-                '}';
-    }
 }

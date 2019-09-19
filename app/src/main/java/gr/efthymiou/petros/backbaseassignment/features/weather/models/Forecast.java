@@ -1,6 +1,9 @@
 package gr.efthymiou.petros.backbaseassignment.features.weather.models;
 
-public class Forecast {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Forecast implements Parcelable {
 
     private String date;
     private String title;
@@ -105,4 +108,49 @@ public class Forecast {
         this.rainInfo = rainInfo;
         this.rainSelectionVisibility = rainSelectionVisibility;
     }
+
+    protected Forecast(Parcel in) {
+        date = in.readString();
+        title = in.readString();
+        description = in.readString();
+        temp = in.readString();
+        tempMinMax = in.readString();
+        humidity = in.readString();
+        iconId = in.readInt();
+        windInfo = in.readString();
+        rainInfo = in.readString();
+        rainSelectionVisibility = in.readInt();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(date);
+        dest.writeString(title);
+        dest.writeString(description);
+        dest.writeString(temp);
+        dest.writeString(tempMinMax);
+        dest.writeString(humidity);
+        dest.writeInt(iconId);
+        dest.writeString(windInfo);
+        dest.writeString(rainInfo);
+        dest.writeInt(rainSelectionVisibility);
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<Forecast> CREATOR = new Parcelable.Creator<Forecast>() {
+        @Override
+        public Forecast createFromParcel(Parcel in) {
+            return new Forecast(in);
+        }
+
+        @Override
+        public Forecast[] newArray(int size) {
+            return new Forecast[size];
+        }
+    };
 }
