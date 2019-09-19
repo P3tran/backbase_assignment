@@ -29,8 +29,8 @@ public class DayForecastMapper implements Function<List<ForecastDomain>, List<Da
 
         for (String date : allDates) {
             List<ForecastDomain> domainsToAddInDay = new ArrayList<>();
-            for (ForecastDomain domain: input) {
-                if(domain.getDate().equals(date))
+            for (ForecastDomain domain : input) {
+                if (domain.getDate().equals(date))
                     domainsToAddInDay.add(domain);
             }
             result.add(mapToDayForecast(domainsToAddInDay));
@@ -41,7 +41,7 @@ public class DayForecastMapper implements Function<List<ForecastDomain>, List<Da
     private DayForecast mapToDayForecast(List<ForecastDomain> inputs) {
         return new DayForecast(
                 inputs.get(0).getDate(),
-                mapTempMinMax(inputs.get(0).getTempMin(), inputs.get(0).getTempMax()),
+                mapTempMinMax(inputs),
                 mapForecasts(inputs)
         );
     }
@@ -49,7 +49,7 @@ public class DayForecastMapper implements Function<List<ForecastDomain>, List<Da
     private List<Forecast> mapForecasts(List<ForecastDomain> input) {
         List<Forecast> forecasts = new ArrayList<>();
 
-        for(ForecastDomain domain: input) {
+        for (ForecastDomain domain : input) {
             forecasts.add(mapDomainToUI(domain));
         }
         return forecasts;
@@ -63,9 +63,9 @@ public class DayForecastMapper implements Function<List<ForecastDomain>, List<Da
                 mapTemperature(input.getTemp()),
                 mapHumidity(input.getHumidity()),
                 mapIcon(input.getIcon()),
-                mapWindInfo(input.getWindSpeed()),
-                mapRainInfo(input.getOneHourRain(), input.getThreeHourRain()),
-                mapRainVisibility(input.getOneHourRain(), input.getThreeHourRain())
+                mapWindInfo(input.getWindSpeed(), input.getWindDeg()),
+                mapRainInfo(input.getThreeHourRain()),
+                mapRainVisibility(input.getThreeHourRain())
         );
     }
 
@@ -112,24 +112,31 @@ public class DayForecastMapper implements Function<List<ForecastDomain>, List<Da
         }
     }
 
-    private int mapRainVisibility(Double oneHourRain, Double threeHourRain) {
-        if (oneHourRain == null && threeHourRain == null)
+    private int mapRainVisibility( Double threeHourRain) {
+        if (threeHourRain == null)
             return View.GONE;
         return View.VISIBLE;
     }
 
-    private String mapRainInfo(Double oneHourRain, Double threeHourRain) {
+    private String mapRainInfo(Double threeHourRain) {
         String result = "";
-        if (oneHourRain != null)
-            result = "1h: " + oneHourRain;
         if (threeHourRain != null)
-            result = result + " 3h: " + threeHourRain;
+            result = String.valueOf(threeHourRain);
         return result;
     }
 
-    private String mapWindInfo(Double windSpeed) {
+    private String mapWindInfo(Double windSpeed, Double deg) {
+        String direction = "";
+        if (deg >= 0.0 && deg <= 90.0)
+            direction = ", N/E";
+        else if (deg >= 90.0 && deg <= 180.0)
+            direction = ", S/E";
+        else if (deg >= 180 && deg <= 270)
+            direction = ", S/W";
+        else if (deg >= 270 && deg <= 396)
+            direction = ", N/W";
         if (windSpeed != null)
-            return windSpeed + " m/s";
+            return windSpeed + " m/s" + direction;
         return "-";
     }
 
@@ -137,8 +144,17 @@ public class DayForecastMapper implements Function<List<ForecastDomain>, List<Da
         return humidity + " %";
     }
 
-    private String mapTempMinMax(double tempMin, double tempMax) {
-        return Math.round(tempMin) + " ℃ - " + Math.round(tempMax) + " ℃";
+    private String mapTempMinMax(List<ForecastDomain> inputs) {
+        double min = 1000.0;
+        double max = -1000.0;
+        for (ForecastDomain dm : inputs) {
+            if (dm.getTempMin() < min)
+                min = dm.getTempMin();
+            if(dm.getTempMax() > max)
+                max = dm.getTempMax();
+        }
+
+        return Math.round(min) + " ℃ - " + Math.round(max) + " ℃";
     }
 
     private String mapTemperature(double temp) {

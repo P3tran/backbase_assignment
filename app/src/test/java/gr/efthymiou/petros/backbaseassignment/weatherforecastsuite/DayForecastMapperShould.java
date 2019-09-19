@@ -39,12 +39,12 @@ public class DayForecastMapperShould {
 
     @Test
     public void mapWind() {
-        assertEquals("10.0 m/s", resultForecast.getWindInfo());
+        assertEquals("10.0 m/s, N/E", resultForecast.getWindInfo());
     }
 
     @Test
     public void mapRainInfo() {
-        assertEquals("1h: 2.0 3h: 1.1", resultForecast.getRainInfo());
+        assertEquals("1.1", resultForecast.getRainInfo());
     }
 
     @Test
