@@ -39,6 +39,10 @@ public class BookmarksFragment extends BaseFragment implements BookmarksView {
     public BookmarksFragment() {
     }
 
+    public static BookmarksFragment newInstance() {
+        return new BookmarksFragment();
+    }
+
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_bookmarks;
@@ -74,6 +78,7 @@ public class BookmarksFragment extends BaseFragment implements BookmarksView {
     }
 
     void setupRecyclerView(List<Bookmark> bookmarks) {
+
         rvAdapter = new BookmarksRecyclerAdapter(bookmarks, new BookmarkClickListener() {
 
             @Override
@@ -93,7 +98,12 @@ public class BookmarksFragment extends BaseFragment implements BookmarksView {
 
     @Override
     public void displayBookmarks(List<Bookmark> bookmarks) {
-        setupRecyclerView(bookmarks);
+        if (getActivity() != null) {
+            getActivity().runOnUiThread(() -> {
+                setupRecyclerView(bookmarks);
+
+            });
+        }
     }
 
     private void showUndoSnackbar(final Bookmark bookmark) {
@@ -116,32 +126,48 @@ public class BookmarksFragment extends BaseFragment implements BookmarksView {
 
     @Override
     public void bookmarkDeletedSuccess(Bookmark bookmark) {
-        showUndoSnackbar(bookmark);
-        if (rvAdapter.getBookmarks().size() == 0)
-            displayEmptyState();
+        if (getActivity() != null) {
+            getActivity().runOnUiThread(() -> {
+                showUndoSnackbar(bookmark);
+                if (rvAdapter.getBookmarks().size() == 0)
+                    displayEmptyState();
+            });
+        }
     }
 
     @Override
     public void bookmarkDeletedFailure() {
-        displayError(R.string.general_error);
+        if (getActivity() != null) {
+            getActivity().runOnUiThread(() -> {
+                displayError(R.string.general_error);
+            });
+        }
     }
 
     @Override
     public void displayError(int errorMessageId) {
-        Snackbar.make(mRoot, getString(R.string.general_error), Snackbar.LENGTH_LONG).show();
-    }
-
-    public static BookmarksFragment newInstance() {
-        return new BookmarksFragment();
+        if (getActivity() != null) {
+            getActivity().runOnUiThread(() -> {
+                Snackbar.make(mRoot, getString(R.string.general_error), Snackbar.LENGTH_LONG).show();
+            });
+        }
     }
 
     @Override
     public void displayEmptyState() {
-        mEmptyState.setVisibility(View.VISIBLE);
+        if (getActivity() != null) {
+            getActivity().runOnUiThread(() -> {
+                mEmptyState.setVisibility(View.VISIBLE);
+            });
+        }
     }
 
     @Override
     public void hideEmptyState() {
-        mEmptyState.setVisibility(View.GONE);
+        if (getActivity() != null) {
+            getActivity().runOnUiThread(() -> {
+                mEmptyState.setVisibility(View.GONE);
+            });
+        }
     }
 }

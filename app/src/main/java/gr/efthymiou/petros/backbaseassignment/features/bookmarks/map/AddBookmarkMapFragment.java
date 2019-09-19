@@ -26,7 +26,6 @@ import com.google.android.material.snackbar.Snackbar;
 
 import gr.efthymiou.petros.backbaseassignment.R;
 import gr.efthymiou.petros.backbaseassignment.application.BaseFragment;
-import gr.efthymiou.petros.backbaseassignment.application.MainActivity;
 import gr.efthymiou.petros.backbaseassignment.features.bookmarks.Coord;
 import gr.efthymiou.petros.backbaseassignment.utils.Const;
 import gr.efthymiou.petros.backbaseassignment.utils.LocationHelper;
@@ -55,6 +54,10 @@ public class AddBookmarkMapFragment extends BaseFragment implements OnMapReadyCa
     };
 
     public AddBookmarkMapFragment() {
+    }
+
+    public static AddBookmarkMapFragment newInstance() {
+        return new AddBookmarkMapFragment();
     }
 
     @Override
@@ -111,8 +114,12 @@ public class AddBookmarkMapFragment extends BaseFragment implements OnMapReadyCa
     @Override
     public void bookmarkAdded(String bookmarkName) {
         if (getActivity() != null) {
-            getActivity().onBackPressed();
-            displaySnackbar(getString(R.string.bookmarked) + " " + bookmarkName);
+            getActivity().runOnUiThread(() -> {
+                if (getActivity() != null) {
+                    getActivity().onBackPressed();
+                    displaySnackbar(getString(R.string.bookmarked) + " " + bookmarkName);
+                }
+            });
         }
     }
 
@@ -163,7 +170,11 @@ public class AddBookmarkMapFragment extends BaseFragment implements OnMapReadyCa
 
     @Override
     public void displayError(int errorMessageId) {
-        Snackbar.make(mRoot, getString(errorMessageId), Snackbar.LENGTH_LONG).show();
+        if (getActivity() != null) {
+            getActivity().runOnUiThread(() -> {
+                Snackbar.make(mRoot, getString(errorMessageId), Snackbar.LENGTH_LONG).show();
+            });
+        }
     }
 
     @Override
@@ -185,9 +196,5 @@ public class AddBookmarkMapFragment extends BaseFragment implements OnMapReadyCa
             displayError(R.string.no_bookmark_name);
         else
             presenter.addBookmark(mMap.getCameraPosition().target, mLocation.getText().toString(), getContext());
-    }
-
-    public static AddBookmarkMapFragment newInstance() {
-        return new AddBookmarkMapFragment();
     }
 }

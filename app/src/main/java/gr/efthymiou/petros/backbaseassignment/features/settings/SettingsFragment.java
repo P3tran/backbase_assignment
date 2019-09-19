@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 import android.widget.Switch;
 
 import androidx.annotation.NonNull;
@@ -87,11 +86,19 @@ public class SettingsFragment extends BaseFragment implements SettingsView {
 
     @Override
     public void bookmarksDeleted() {
-        displaySnackbar(getString(R.string.all_bookmarks_deleted));
+        if (getActivity() != null) {
+            getActivity().runOnUiThread(() -> {
+                displaySnackbar(getString(R.string.all_bookmarks_deleted));
+            });
+        }
     }
 
     @Override
     public void displayError(int errorMessageId) {
-        displaySnackbar(getString(errorMessageId));
+        if (getActivity() != null) {
+            getActivity().runOnUiThread(() -> {
+                displaySnackbar(getString(errorMessageId));
+            });
+        }
     }
 }
