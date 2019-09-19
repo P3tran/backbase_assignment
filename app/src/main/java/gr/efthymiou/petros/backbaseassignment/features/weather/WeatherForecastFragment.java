@@ -14,6 +14,7 @@ import gr.efthymiou.petros.backbaseassignment.R;
 import gr.efthymiou.petros.backbaseassignment.base.BaseFragment;
 import gr.efthymiou.petros.backbaseassignment.base.MainActivity;
 import gr.efthymiou.petros.backbaseassignment.features.bookmarks.Bookmark;
+import gr.efthymiou.petros.backbaseassignment.features.weather.models.DayForecast;
 import gr.efthymiou.petros.backbaseassignment.features.weather.models.Forecast;
 
 public class WeatherForecastFragment extends BaseFragment implements WeatherForecastView {
@@ -57,10 +58,10 @@ public class WeatherForecastFragment extends BaseFragment implements WeatherFore
     }
 
     @Override
-    public void displayForecast(List<Forecast> forecast) {
+    public void displayForecast(List<DayForecast> forecast) {
         if (getActivity() != null) {
-            adapter = new ForecastDaysPagerAdapter(getActivity().getSupportFragmentManager(), forecast);
-            forecastsViewPager.setAdapter(adapter);
+            adapter = new ForecastDaysPagerAdapter(getActivity().getSupportFragmentManager(),forecast);
+            getActivity().runOnUiThread(() -> forecastsViewPager.setAdapter(adapter));
         }
     }
 

@@ -3,6 +3,7 @@ package gr.efthymiou.petros.backbaseassignment.features.weather.day;
 
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -11,14 +12,16 @@ import androidx.annotation.Nullable;
 
 import gr.efthymiou.petros.backbaseassignment.R;
 import gr.efthymiou.petros.backbaseassignment.base.BaseFragment;
+import gr.efthymiou.petros.backbaseassignment.features.weather.models.DayForecast;
 import gr.efthymiou.petros.backbaseassignment.features.weather.models.Forecast;
 
 public class DayForecastFragment extends BaseFragment {
-    private static final String FORECAST = "FORECAST";
+    private static final String DAY_FORECAST = "DAY_FORECAST";
 
-    private Forecast forecast;
+    private DayForecast dayForecast;
     private TextView mDate, mTitle, mDescription, mTemperature, mTemperatureMinMax, mHumidity, mWindInfo, mRainInfo;
     private ImageView mIcon;
+    private ViewGroup mRainLl;
 
     public DayForecastFragment() { }
 
@@ -26,19 +29,23 @@ public class DayForecastFragment extends BaseFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         instantiateViews(view);
-        mDate.setText(forecast.getDate());
-        mTitle.setText(forecast.getTitle());
-        mDescription.setText(forecast.getDescription());
-        mTemperature.setText(forecast.getTemp());
-        mIcon.setImageDrawable(getResources().getDrawable(forecast.getIconId()));
-        mTemperatureMinMax.setText(forecast.getTempMinMax());
+        /*mDate.setText(dayForecast.getTime());
+        mTitle.setText(dayForecast.getTitle());
+        mDescription.setText(dayForecast.getDescription());
+        mTemperature.setText(dayForecast.getTemp());
+        mIcon.setImageDrawable(getResources().getDrawable(dayForecast.getIconId()));
+        mTemperatureMinMax.setText(dayForecast.getTempMinMax());
+        mHumidity.setText(dayForecast.getHumidity());
+        mWindInfo.setText(dayForecast.getWindInfo());
+        mRainInfo.setText(dayForecast.getRainInfo());
+        mRainLl.setVisibility(dayForecast.getRainSelectionVisibility());*/
     }
 
 
-    public static DayForecastFragment newInstance(Forecast forecast) {
+    public static DayForecastFragment newInstance(DayForecast dayForecast) {
         DayForecastFragment fragment = new DayForecastFragment();
         Bundle args = new Bundle();
-        args.putParcelable(FORECAST, forecast);
+        args.putParcelable(DAY_FORECAST, dayForecast);
         fragment.setArguments(args);
         return fragment;
     }
@@ -47,7 +54,7 @@ public class DayForecastFragment extends BaseFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            forecast = getArguments().getParcelable(FORECAST);
+            dayForecast = getArguments().getParcelable(DAY_FORECAST);
         }
     }
 
@@ -57,11 +64,15 @@ public class DayForecastFragment extends BaseFragment {
     }
 
     private void instantiateViews(@NonNull View view) {
-        mDate = view.findViewById(R.id.date);
+        //mDate = view.findViewById(R.id.date);
         mTitle = view.findViewById(R.id.title);
         mDescription = view.findViewById(R.id.description);
         mIcon = view.findViewById(R.id.icon);
         mTemperature = view.findViewById(R.id.temperature);
         mTemperatureMinMax = view.findViewById(R.id.temp_min_max);
+        mHumidity = view.findViewById(R.id.humidity);
+        mWindInfo = view.findViewById(R.id.wind);
+        mRainInfo = view.findViewById(R.id.rain);
+        mRainLl = view.findViewById(R.id.rain_ll);
     }
 }

@@ -18,6 +18,7 @@ import gr.efthymiou.petros.backbaseassignment.R;
 import gr.efthymiou.petros.backbaseassignment.features.bookmarks.Bookmark;
 import gr.efthymiou.petros.backbaseassignment.features.bookmarks.home.BookmarksFragment;
 import gr.efthymiou.petros.backbaseassignment.features.bookmarks.map.AddBookmarkMapFragment;
+import gr.efthymiou.petros.backbaseassignment.features.weather.WeatherForecastFragment;
 
 public class MainActivityImpl extends AppCompatActivity implements MainActivity {
 
@@ -71,10 +72,12 @@ public class MainActivityImpl extends AppCompatActivity implements MainActivity 
         } else if(fragmentName.equals(AddBookmarkMapFragment.class.getSimpleName())) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             setTitle(R.string.add_bookmark_map_fragment_title);
+        } else if(fragmentName.equals(WeatherForecastFragment.class.getSimpleName())) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            setTitle(R.string.weather_forecast_fragment_title);
         }
     }
 
-    //TODO evaluate if needed
     @Override
     public void displaySnackbar(String message) {
         Snackbar.make(mRoot, message, Snackbar.LENGTH_LONG).show();

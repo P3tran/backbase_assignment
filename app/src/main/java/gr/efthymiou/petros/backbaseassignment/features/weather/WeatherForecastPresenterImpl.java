@@ -11,12 +11,12 @@ public class WeatherForecastPresenterImpl implements WeatherForecastPresenter,
 
     private WeatherForecastView view;
     private WeatherForecastInteractor interactor;
-    private ForecastMapper mapper;
+    private DayForecastMapper mapper;
 
     public WeatherForecastPresenterImpl(WeatherForecastView view) {
         this.view = view;
         interactor = new WeatherForecastInteractorImpl();
-        mapper = new ForecastMapper();
+        mapper = new DayForecastMapper();
     }
 
     @Override

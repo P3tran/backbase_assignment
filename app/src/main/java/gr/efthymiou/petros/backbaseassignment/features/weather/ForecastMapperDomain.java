@@ -8,6 +8,7 @@ import java.util.List;
 import gr.efthymiou.petros.backbaseassignment.features.weather.models.ForecastDomain;
 import gr.efthymiou.petros.backbaseassignment.features.weather.models.network.Forecast5daysRaw;
 import gr.efthymiou.petros.backbaseassignment.features.weather.models.network.ForecastRaw;
+import gr.efthymiou.petros.backbaseassignment.utils.DateUtils;
 
 public class ForecastMapperDomain implements Function<Forecast5daysRaw, List<ForecastDomain>> {
 
@@ -30,7 +31,7 @@ public class ForecastMapperDomain implements Function<Forecast5daysRaw, List<For
     private ForecastDomain mapRawToDomain(ForecastRaw raw) {
         ForecastDomain result = new ForecastDomain(
                 raw.getTimestamp(),
-                raw.getDate(),
+                mapDate(raw.getTimestamp()),
                 raw.getWeather().get(0).getId(),
                 raw.getWeather().get(0).getTitle(),
                 raw.getWeather().get(0).getDescription(),
@@ -49,5 +50,9 @@ public class ForecastMapperDomain implements Function<Forecast5daysRaw, List<For
             result.setWindDeg(raw.getWind().getDeg());
         }
         return result;
+    }
+
+    private String mapDate(long timestamp) {
+        return DateUtils.formatDate(timestamp, "dd/MM/yyyy");
     }
 }

@@ -8,22 +8,22 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import java.util.List;
 
 import gr.efthymiou.petros.backbaseassignment.features.weather.day.DayForecastFragment;
-import gr.efthymiou.petros.backbaseassignment.features.weather.models.Forecast;
+import gr.efthymiou.petros.backbaseassignment.features.weather.models.DayForecast;
 
 public class ForecastDaysPagerAdapter extends FragmentPagerAdapter {
 
-    private List<Forecast> forecasts;
+    private List<DayForecast> dayForecasts;
 
-    public ForecastDaysPagerAdapter(@NonNull FragmentManager fm, List<Forecast> forecasts) {
+    public ForecastDaysPagerAdapter(@NonNull FragmentManager fm, List<DayForecast> dayForecasts) {
         super(fm);
-        this.forecasts = forecasts;
+        this.dayForecasts = dayForecasts;
     }
 
 
     @NonNull
     @Override
     public Fragment getItem(int position) {
-        return DayForecastFragment.newInstance(forecasts.get(position));
+        return DayForecastFragment.newInstance(dayForecasts.get(position));
     }
 
     @Override

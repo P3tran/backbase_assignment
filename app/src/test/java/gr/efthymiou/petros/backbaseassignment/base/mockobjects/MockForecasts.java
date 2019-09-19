@@ -123,7 +123,7 @@ public class MockForecasts {
 
     public static final ForecastDomain forecastDomain = new ForecastDomain(
             1569121200,
-            "2019-09-22 03:00:00",
+            "22/09/2019",
             800,
             "All good",
             "Best day ever",

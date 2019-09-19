@@ -12,7 +12,7 @@ import gr.efthymiou.petros.backbaseassignment.features.weather.models.ForecastDo
 
 import static org.junit.Assert.assertEquals;
 
-public class ForecastMapperDomainShould {
+public class DayForecastMapperDomainShould {
 
     private ForecastMapperDomain mapper = new ForecastMapperDomain(new MockForecastsRawValidator());
 

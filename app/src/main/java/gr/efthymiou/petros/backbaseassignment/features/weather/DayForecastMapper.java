@@ -9,29 +9,58 @@ import java.util.ArrayList;
 import java.util.List;
 
 import gr.efthymiou.petros.backbaseassignment.R;
+import gr.efthymiou.petros.backbaseassignment.features.weather.models.DayForecast;
 import gr.efthymiou.petros.backbaseassignment.features.weather.models.Forecast;
 import gr.efthymiou.petros.backbaseassignment.features.weather.models.ForecastDomain;
 import gr.efthymiou.petros.backbaseassignment.utils.DateUtils;
 
-public class ForecastMapper implements Function<List<ForecastDomain>, List<Forecast>> {
+public class DayForecastMapper implements Function<List<ForecastDomain>, List<DayForecast>> {
 
     @Override
-    public List<Forecast> apply(List<ForecastDomain> input) {
+    public List<DayForecast> apply(List<ForecastDomain> input) {
 
-        List<Forecast> result = new ArrayList<>();
+        List<DayForecast> result = new ArrayList<>();
+
+        List<String> allDates = new ArrayList<>();
         for (ForecastDomain domain : input) {
-            result.add(mapToUI(domain));
+            if (!allDates.contains(domain.getDate()))
+                allDates.add(domain.getDate());
+        }
+
+        for (String date : allDates) {
+            List<ForecastDomain> domainsToAddInDay = new ArrayList<>();
+            for (ForecastDomain domain: input) {
+                if(domain.getDate().equals(date))
+                    domainsToAddInDay.add(domain);
+            }
+            result.add(mapToDayForecast(domainsToAddInDay));
         }
         return result;
     }
 
-    private Forecast mapToUI(ForecastDomain input) {
+    private DayForecast mapToDayForecast(List<ForecastDomain> inputs) {
+        return new DayForecast(
+                inputs.get(0).getDate(),
+                mapTempMinMax(inputs.get(0).getTempMin(), inputs.get(0).getTempMax()),
+                mapForecasts(inputs)
+        );
+    }
+
+    private List<Forecast> mapForecasts(List<ForecastDomain> input) {
+        List<Forecast> forecasts = new ArrayList<>();
+
+        for(ForecastDomain domain: input) {
+            forecasts.add(mapDomainToUI(domain));
+        }
+        return forecasts;
+    }
+
+    private Forecast mapDomainToUI(ForecastDomain input) {
         return new Forecast(
                 mapDate(input.getTimestamp()),
                 input.getTitle(),
                 input.getDescription(),
                 mapTemperature(input.getTemp()),
-                mapTempMinMax(input.getTempMin(), input.getTempMax()),
                 mapHumidity(input.getHumidity()),
                 mapIcon(input.getIcon()),
                 mapWindInfo(input.getWindSpeed()),
@@ -39,6 +68,7 @@ public class ForecastMapper implements Function<List<ForecastDomain>, List<Forec
                 mapRainVisibility(input.getOneHourRain(), input.getThreeHourRain())
         );
     }
+
 
     private int mapIcon(String icon) {
         switch (icon) {

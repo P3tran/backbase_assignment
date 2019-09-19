@@ -5,23 +5,22 @@ import android.os.Parcelable;
 
 public class Forecast implements Parcelable {
 
-    private String date;
+    private String time;
     private String title;
     private String description;
     private String temp;
-    private String tempMinMax;
     private String humidity;
     private int iconId;
     private String windInfo;
     private String rainInfo;
     private int rainSelectionVisibility;
 
-    public String getDate() {
-        return date;
+    public String getTime() {
+        return time;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setTime(String time) {
+        this.time = time;
     }
 
     public String getTitle() {
@@ -46,14 +45,6 @@ public class Forecast implements Parcelable {
 
     public void setTemp(String temp) {
         this.temp = temp;
-    }
-
-    public String getTempMinMax() {
-        return tempMinMax;
-    }
-
-    public void setTempMinMax(String tempMinMax) {
-        this.tempMinMax = tempMinMax;
     }
 
     public String getHumidity() {
@@ -96,12 +87,11 @@ public class Forecast implements Parcelable {
         this.iconId = iconId;
     }
 
-    public Forecast(String date, String title, String description, String temp, String tempMinMax, String humidity, int iconId, String windInfo, String rainInfo, int rainSelectionVisibility) {
-        this.date = date;
+    public Forecast(String time, String title, String description, String temp, String humidity, int iconId, String windInfo, String rainInfo, int rainSelectionVisibility) {
+        this.time = time;
         this.title = title;
         this.description = description;
         this.temp = temp;
-        this.tempMinMax = tempMinMax;
         this.humidity = humidity;
         this.iconId = iconId;
         this.windInfo = windInfo;
@@ -112,11 +102,10 @@ public class Forecast implements Parcelable {
 
 
     protected Forecast(Parcel in) {
-        date = in.readString();
+        time = in.readString();
         title = in.readString();
         description = in.readString();
         temp = in.readString();
-        tempMinMax = in.readString();
         humidity = in.readString();
         iconId = in.readInt();
         windInfo = in.readString();
@@ -131,11 +120,10 @@ public class Forecast implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(date);
+        dest.writeString(time);
         dest.writeString(title);
         dest.writeString(description);
         dest.writeString(temp);
-        dest.writeString(tempMinMax);
         dest.writeString(humidity);
         dest.writeInt(iconId);
         dest.writeString(windInfo);
