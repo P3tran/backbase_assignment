@@ -29,7 +29,7 @@ public class DayForecastMapperShould {
 
     @Test
     public void mapDateToTime() {
-        assertEquals("06:00", resultForecast.getTime());
+        assertEquals("03:00", resultForecast.getTime());
     }
 
     @Test
